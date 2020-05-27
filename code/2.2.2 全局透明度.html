@@ -9,6 +9,13 @@
             margin: 50px auto;
             text-align: center;
         }
+        @media (prefers-color-scheme: dark) {
+          body { background: black; color:  #ddd; }
+        }
+
+        @media (prefers-color-scheme: light) {
+          body { background:  #eee; color: black; }
+        }
     </style>
     <body>
       <h1>全局透明度</h1>
@@ -37,6 +44,7 @@
         function drawCanvas() {
           context.clearRect(0, 0, canvas.width, canvas.height)
           context.save()
+          context.beginPath()
           context.arc(400, 400, 300, 0, 2 * Math.PI, false)
           context.arc(400, 400, 150, 0, 2 * Math.PI, true)
           context.fillStyle = '#058'

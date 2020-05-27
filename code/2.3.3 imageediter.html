@@ -8,14 +8,15 @@
         * {
             margin: 50px auto;
             text-align: center;
-            color: #fff;
         }
-        body {
-          background: black;
+        @media (prefers-color-scheme: dark) {
+          body { background: black; color:  #ddd; }
         }
-        button, input {
-          color: black;
+
+        @media (prefers-color-scheme: light) {
+          body { background:  #eee; color: black; }
         }
+
     </style>
     <body>
       <h1>Image Editer</h1>

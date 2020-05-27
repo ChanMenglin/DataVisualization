@@ -9,89 +9,97 @@
             margin: 50px auto;
             text-align: center;
         }
+        @media (prefers-color-scheme: dark) {
+          body { background: black; color:  #ddd; }
+        }
+
+        @media (prefers-color-scheme: light) {
+          body { background:  #eee; color: black; }
+        }
     </style>
     <body>
-        <p>绘制出来的线条均为黑色，这是因为 canvans 绘图是基于状态的，靠后的样式会覆盖前面的样式  </p>
-        <canvas id="canvas1" style="border: 1px solid #aaa; display:block;"></canvas>
-        <p>使用 beginPath 和 closePath 解决这个问题</p>
-        <canvas id="canvas2" style="border: 1px solid #aaa; display:block;"></canvas>
-        <canvas id="canvas3" style="border: 1px solid #aaa; display:block;"></canvas>
-        <script>
-            var canvas1 = document.getElementById("canvas1")
-            canvas1.width = 1024
-            canvas1.height = 768
+      <h1>绘制简单图形</h1>
+      <p>绘制出来的线条均为黑色，这是因为 canvans 绘图是基于状态的，靠后的样式会覆盖前面的样式  </p>
+      <canvas id="canvas1" style="border: 1px solid #aaa; display:block;"></canvas>
+      <p>使用 beginPath 和 closePath 解决这个问题</p>
+      <canvas id="canvas2" style="border: 1px solid #aaa; display:block;"></canvas>
+      <canvas id="canvas3" style="border: 1px solid #aaa; display:block;"></canvas>
+      <script>
+          var canvas1 = document.getElementById("canvas1")
+          canvas1.width = 1024
+          canvas1.height = 768
 
-            var context1 = canvas1.getContext("2d")
-            context1.moveTo(100, 100) // 将画笔放到 100，100
-            context1.lineTo(700, 700) // 将画笔移动到 700，700
-            context1.lineTo(100, 700)
-            context1.lineTo(100, 100)
+          var context1 = canvas1.getContext("2d")
+          context1.moveTo(100, 100) // 将画笔放到 100，100
+          context1.lineTo(700, 700) // 将画笔移动到 700，700
+          context1.lineTo(100, 700)
+          context1.lineTo(100, 100)
 
-            context1.lineWidth = 5 // 设置线条的宽度
-            context1.strokeStyle = "#005588" // 设置线条的颜色（可使用 css 的属性设置）
-            context1.stroke() // 绘制线条
+          context1.lineWidth = 5 // 设置线条的宽度
+          context1.strokeStyle = "#005588" // 设置线条的颜色（可使用 css 的属性设置）
+          context1.stroke() // 绘制线条
 
-            context1.moveTo(200, 100)
-            context1.lineTo(700, 600)
-            context1.strokeStyle = "black"
+          context1.moveTo(200, 100)
+          context1.lineTo(700, 600)
+          context1.strokeStyle = "#aaa"
 
-            context1.stroke()
+          context1.stroke()
 
-            // ---------------- canvas2 ----------------
-            var canvas2 = document.getElementById("canvas2")
-            canvas2.width = 1024
-            canvas2.height = 768
+          // ---------------- canvas2 ----------------
+          var canvas2 = document.getElementById("canvas2")
+          canvas2.width = 1024
+          canvas2.height = 768
 
-            var context2 = canvas2.getContext("2d")
-            context2.beginPath() // 开始
-            context2.moveTo(100, 100) // 将画笔放到 100，100
-            context2.lineTo(700, 700) // 将画笔移动到 700，700
-            context2.lineTo(100, 700)
-            context2.lineTo(100, 100)
-            context2.closePath() // 结束
+          var context2 = canvas2.getContext("2d")
+          context2.beginPath() // 开始
+          context2.moveTo(100, 100) // 将画笔放到 100，100
+          context2.lineTo(700, 700) // 将画笔移动到 700，700
+          context2.lineTo(100, 700)
+          context2.lineTo(100, 100)
+          context2.closePath() // 结束
 
-            context2.lineWidth = 5 // 设置线条的宽度
-            context2.strokeStyle = "#005588" // 设置线条的颜色（可使用 css 的属性设置）
+          context2.lineWidth = 5 // 设置线条的宽度
+          context2.strokeStyle = "#005588" // 设置线条的颜色（可使用 css 的属性设置）
 
-            // 绘制线条
-            context2.stroke()
+          // 绘制线条
+          context2.stroke()
 
-            context2.beginPath()
-            context2.moveTo(200, 100)
-            context2.lineTo(700, 600)
-            context2.closePath()
-            context2.strokeStyle = "black"
+          context2.beginPath()
+          context2.moveTo(200, 100)
+          context2.lineTo(700, 600)
+          context2.closePath()
+          context2.strokeStyle = "#aaa"
 
-            context2.stroke()
+          context2.stroke()
 
-            // ----------------  canvas3 ----------------
-            var canvas3 = document.getElementById("canvas3")
-            canvas3.width = 1024
-            canvas3.height = 768
+          // ----------------  canvas3 ----------------
+          var canvas3 = document.getElementById("canvas3")
+          canvas3.width = 1024
+          canvas3.height = 768
 
-            var context3 = canvas3.getContext("2d")
+          var context3 = canvas3.getContext("2d")
 
-            context3.lineWidth = 10
-            context3.beginPath()
-            context3.moveTo(100, 200)
-            context3.lineTo(300, 400)
-            context3.lineTo(100,600)
-            context3.strokeStyle = 'red'
-            context3.stroke()
+          context3.lineWidth = 10
+          context3.beginPath()
+          context3.moveTo(100, 200)
+          context3.lineTo(300, 400)
+          context3.lineTo(100,600)
+          context3.strokeStyle = 'red'
+          context3.stroke()
 
-            context3.beginPath()
-            context3.moveTo(300, 200)
-            context3.lineTo(500, 400)
-            context3.lineTo(300, 600)
-            context3.strokeStyle = "green"
-            context3.stroke()
+          context3.beginPath()
+          context3.moveTo(300, 200)
+          context3.lineTo(500, 400)
+          context3.lineTo(300, 600)
+          context3.strokeStyle = "green"
+          context3.stroke()
 
-            context3.beginPath()
-            context3.moveTo(500, 200)
-            context3.lineTo(700, 400)
-            context3.lineTo(500, 600)
-            context3.strokeStyle = "blue"
-            context3.stroke()
-        </script>
+          context3.beginPath()
+          context3.moveTo(500, 200)
+          context3.lineTo(700, 400)
+          context3.lineTo(500, 600)
+          context3.strokeStyle = "blue"
+          context3.stroke()
+      </script>
     </body>
 </html>

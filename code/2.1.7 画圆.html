@@ -9,38 +9,46 @@
             margin: 50px auto;
             text-align: center;
         }
+        @media (prefers-color-scheme: dark) {
+          body { background: black; color:  #ddd; }
+        }
+
+        @media (prefers-color-scheme: light) {
+          body { background:  #eee; color: black; }
+        }
     </style>
     <body>
-        顺时针
-        <canvas id="canvas1" style="border: 1px solid #aaa; display:block;"></canvas>
-        逆时针
-        <canvas id="canvas2" style="border: 1px solid #aaa; display:block;"></canvas>
-        <script>
-            // -------- 顺时针 --------
-            var canvas1 = document.getElementById("canvas1")
-            canvas1.width = 1024
-            canvas1.height = 768
+      <h1>画圆</h1>
+      顺时针
+      <canvas id="canvas1" style="border: 1px solid #aaa; display:block;"></canvas>
+      逆时针
+      <canvas id="canvas2" style="border: 1px solid #aaa; display:block;"></canvas>
+      <script>
+          // -------- 顺时针 --------
+          var canvas1 = document.getElementById("canvas1")
+          canvas1.width = 1024
+          canvas1.height = 768
 
-            var context1 = canvas1.getContext("2d")
-            context1.arc(300, 300, 200, 0, 1.5 * Math.PI)
+          var context1 = canvas1.getContext("2d")
+          context1.arc(300, 300, 200, 0, 1.5 * Math.PI)
 
-            context1.lineWidth = 5
-            context1.strokeStyle="#005588"
+          context1.lineWidth = 5
+          context1.strokeStyle="#005588"
 
-            context1.stroke()
+          context1.stroke()
 
-            // -------- 逆时针 --------
-            var canvas2 = document.getElementById("canvas2")
-            canvas2.width = 1024
-            canvas2.height = 768
+          // -------- 逆时针 --------
+          var canvas2 = document.getElementById("canvas2")
+          canvas2.width = 1024
+          canvas2.height = 768
 
-            var context2 = canvas2.getContext("2d")
-            context2.arc(300, 300, 200, 0, 1.5 * Math.PI, true)
+          var context2 = canvas2.getContext("2d")
+          context2.arc(300, 300, 200, 0, 1.5 * Math.PI, true)
 
-            context2.lineWidth = 5
-            context2.strokeStyle="#005588"
+          context2.lineWidth = 5
+          context2.strokeStyle="#005588"
 
-            context2.stroke()
-        </script>
+          context2.stroke()
+      </script>
     </body>
 </html>

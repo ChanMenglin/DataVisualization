@@ -1,7 +1,7 @@
 var canvasWidth = Math.min(800, $(window).width() - 20)
 var canvasHeight = canvasWidth
 
-var strokeColor = 'black'
+var strokeColor = window.matchMedia('(prefers-color-scheme: dark)') ? 'wheat' :'black'
 var isMouseDown = false
 var lastLocation = {x: 0, y: 0}
 var lastTimeStamp = 0
@@ -30,6 +30,10 @@ window.onload = function () {
       strokeColor = $(this).css('background-color')
     }
   )
+
+  window.matchMedia('(prefers-color-scheme: dark)').addListener(function(e) {
+    if (['wheat', 'black'].includes(strokeColor)) strokeColor = e.matches ? 'wheat' :'black'
+  })
 
   canvas.addEventListener('touchstart', function(e) {
     e.preventDefault()
@@ -129,7 +133,7 @@ function calclineWidth(t, s) {
 }
 
 /**
- * 亮点间的距离
+ * 两点间的距离
  * @param {Object} loc1 当前鼠标所在位置坐标
  * @param {Object} loc2 上一次鼠标所在坐标
  * @returns 亮点间的距离

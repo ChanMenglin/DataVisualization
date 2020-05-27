@@ -1,3 +1,20 @@
+@media (prefers-color-scheme: dark) {
+  body { background: black; color:  #ddd; }
+}
+
+@media (prefers-color-scheme: light) {
+  body { background:  #eee; color: black; }
+}
+
+body {
+  margin: 20px auto;
+  padding: 0 0;
+}
+
+* {
+  text-align: center;
+}
+
 #canvas {
   display: block;
   margin: 0 auto;
@@ -18,14 +35,8 @@
   font-size: 20px;
   text-align: center;
   border-radius: 5px 5px;
-  color: pointer;
-  background-color: white;
   font-weight: bold;
   font-family: PingFang, Microsoft Yahei, Arial;
-}
-
-.op_btn:hover {
-  background-color: #def;
 }
 
 .clear_fix {
@@ -50,8 +61,32 @@
   border: 5px solid blueviolet;
 }
 
-#black_btn {
-  background-color: black;
+@media (prefers-color-scheme: dark) {
+  #default_btn {
+    background-color: wheat;
+  }
+
+  .op_btn {
+    color: pointer;
+    background-color: black;
+  }
+  .op_btn:hover {
+    background-color: #333;
+  }
+}
+
+@media (prefers-color-scheme: light) {
+  #default_btn {
+    background-color: black;
+  }
+
+  .op_btn {
+    color: pointer;
+    background-color: white;
+  }
+  .op_btn:hover {
+    background-color: #def;
+  }
 }
 
 #blue_btn {

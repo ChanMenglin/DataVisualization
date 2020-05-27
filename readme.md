@@ -773,7 +773,7 @@ inmageData = context.createImageDate(
 [Create ImageData](code/2.3.4%20createImageData.html)
 
 ---
-
+Canvas Demo [拓展 - 数字时钟](code/clock/clock.html)  
 Canvas Demo [学写一个字](code/hand-writing/index.html)  
 Canvas Demo [模糊效果](code/blur/index.html)
 

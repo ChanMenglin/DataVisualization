@@ -9,41 +9,49 @@
             margin: 50px auto;
             text-align: center;
         }
+        @media (prefers-color-scheme: dark) {
+          body { background: black; color:  #ddd; }
+        }
+
+        @media (prefers-color-scheme: light) {
+          body { background:  #eee; color: black; }
+        }
     </style>
     <body>
-        <canvas id="canvas" style="border: 1px solid #aaa; display:block;"></canvas>
+      <h1>绘制月亮</h1>
+      <canvas id="canvas" style="border: 1px solid #aaa; display:block;"></canvas>
 
-        <script>
-          var canvas = document.getElementById("canvas")
-          canvas.width = 800
-          canvas.height = 800
+      <script>
+        var canvas = document.getElementById("canvas")
+        canvas.width = 800
+        canvas.height = 800
 
-          var context = canvas.getContext("2d")
+        var context = canvas.getContext("2d")
 
-          fillMon(context, 2, 400, 400, 300 )
+        fillMon(context, 2, 400, 400, 300 )
 
-          function fillMon(ctx, d, x, y, R, rot = 0, fillStyle = '#fb5') {
-            ctx.save()
-            ctx.translate(x, y)
-            ctx.rotate(rot * Math.PI / 180)
-            ctx.scale(R, R)
-            pathMon(ctx, d)
-            ctx.fillStyle = fillStyle
-            ctx.fill()
-            ctx.restore()
-          }
+        function fillMon(ctx, d, x, y, R, rot = 0, fillStyle = '#fb5') {
+          ctx.save()
+          ctx.translate(x, y)
+          ctx.rotate(rot * Math.PI / 180)
+          ctx.scale(R, R)
+          pathMon(ctx, d)
+          ctx.fillStyle = fillStyle
+          ctx.fill()
+          ctx.restore()
+        }
 
-          function pathMon(ctx, d) {
-            ctx.beginPath()
-            ctx.arc(0, 0, 1, 0.5*Math.PI, 1.5*Math.PI, true)
-            ctx.moveTo(0, -1)
-            ctx.arcTo(d, 0, 0, 1, dis(0, -1, d, 0) / d)
-            ctx.closePath()
-          }
+        function pathMon(ctx, d) {
+          ctx.beginPath()
+          ctx.arc(0, 0, 1, 0.5*Math.PI, 1.5*Math.PI, true)
+          ctx.moveTo(0, -1)
+          ctx.arcTo(d, 0, 0, 1, dis(0, -1, d, 0) / d)
+          ctx.closePath()
+        }
 
-          function dis(x1, y1, x2, y2) {
-            return Math.sqrt((x1-x2)*(x1-x2) + (y1-y2)*(y1-y2))
-          }
-        </script>
+        function dis(x1, y1, x2, y2) {
+          return Math.sqrt((x1-x2)*(x1-x2) + (y1-y2)*(y1-y2))
+        }
+      </script>
     </body>
 </html>

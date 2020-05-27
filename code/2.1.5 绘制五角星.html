@@ -9,39 +9,48 @@
             margin: 50px auto;
             text-align: center;
         }
+        @media (prefers-color-scheme: dark) {
+          body { background: black; color:  #ddd; }
+        }
+
+        @media (prefers-color-scheme: light) {
+          body { background:  #eee; color: black; }
+        }
     </style>
     <body>
-        <canvas id="canvas" style="border: 1px solid #aaa; display:block;"></canvas>
+      <h1>绘制五角星</h1>
+      <canvas id="canvas" style="border: 1px solid #aaa; display:block;"></canvas>
 
-        <script>
-          window.onload = function () {
-            var canvas = document.getElementById("canvas")
-            canvas.width = 800
-            canvas.height = 800
+      <script>
+        window.onload = function () {
+          var canvas = document.getElementById("canvas")
+          canvas.width = 800
+          canvas.height = 800
 
-            var context = canvas.getContext("2d")
+          var context = canvas.getContext("2d")
 
-            drawStar(context, 150, 300, 400, 400)
+          drawStar(context, 150, 300, 400, 400)
 
-            context.lineWidth = 10
-            context.stroke()
+          context.lineWidth = 10
+          context.strokeStyle = 'wheat'
+          context.stroke()
+        }
+
+        function drawStar(cxt, r, R, x, y, rot = 0) {
+          cxt.beginPath()
+
+          for (let i = 0; i < 5; i++) {
+            cxt.lineTo( Math.cos( (18 + i*72 - rot)/180 * Math.PI) * R + x,
+                            -Math.sin( (18 + i*72 - rot)/180 * Math.PI) * R + y,
+                          )
+            cxt.lineTo( Math.cos( (54 + i*72 - rot)/180 * Math.PI) * r + x,
+                            -Math.sin( (54 + i*72 - rot)/180 * Math.PI) * r + y,
+                          )
           }
 
-          function drawStar(cxt, r, R, x, y, rot = 0) {
-            cxt.beginPath()
+          cxt.closePath()
+        }
 
-            for (let i = 0; i < 5; i++) {
-              cxt.lineTo( Math.cos( (18 + i*72 - rot)/180 * Math.PI) * R + x,
-                              -Math.sin( (18 + i*72 - rot)/180 * Math.PI) * R + y,
-                            )
-              cxt.lineTo( Math.cos( (54 + i*72 - rot)/180 * Math.PI) * r + x,
-                              -Math.sin( (54 + i*72 - rot)/180 * Math.PI) * r + y,
-                            )
-            }
-
-            cxt.closePath()
-          }
-
-        </script>
+      </script>
     </body>
 </html>
