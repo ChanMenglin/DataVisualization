@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <title>2.1.7 绘制弧线</title>
+    </head>
+    <style>
+        * {
+            margin: 50px auto;
+            text-align: center;
+        }
+    </style>
+    <body>
+        <canvas id="canvas" style="border: 1px solid #aaa; display:block;"></canvas>
+
+        <script>
+          var canvas = document.getElementById("canvas")
+          canvas.width = 800
+          canvas.height = 800
+
+          var context = canvas.getContext("2d")
+
+          arcToText(context, 150, 100, 650, 100, 650, 600, 300)
+
+          function arcToText(cxt, x0, y0, x1, y1, x2, y2, radius) {
+            cxt.beginPath()
+            cxt.moveTo(x0, y0)
+            cxt.arcTo(x1, y1, x2, y2, radius)
+
+            cxt.lineWidth = 5
+            cxt.storkeStyle = 'red'
+            cxt.stroke()
+
+            // 辅助线
+            cxt.beginPath()
+            cxt.moveTo(x0, y0)
+            cxt.lineTo(x1, y1)
+            cxt.lineTo(x2, y2)
+
+            cxt.lineWidth = 2
+            cxt.storkeStyle = 'gray'
+            cxt.stroke()
+          }
+        </script>
+    </body>
+</html>

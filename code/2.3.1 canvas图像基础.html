@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <title>2.3.1 canvas图像基础</title>
+    </head>
+    <style>
+        * {
+            margin: 50px auto;
+            text-align: center;
+        }
+    </style>
+    <body>
+      <h1>canvas 图像处理基础</h1>
+      <h2>第一种方式</h2>
+      <p>不传入绘制的宽和高 canvas 会裁剪超出的部分</p>
+      <code>context.drawImage( image, dx, dy )</code>
+      <canvas id="canvas1" style="border: 1px solid #aaa; display:block;"></canvas>
+      <p>传入绘制的宽和高 canvas 会对图像进行缩放</p>
+      <code>context.drawImage( image, dx, dy, dw, dh )</code>
+      <canvas id="canvas2" style="border: 1px solid #aaa; display:block;"></canvas>
+      <hr>
+      <h2>第二种方式</h2>
+      <p>取图像的部分显示在 canvas 的指定区域</p>
+      <code>context.drawImage( image, sx, sy, sw, sh, dx, dy, dw, dh )</code>
+      <canvas id="canvas3" style="border: 1px solid #aaa; display:block;"></canvas>
+      <script>
+        var canvas1 = document.getElementById("canvas1")
+        var context1 = canvas1.getContext('2d')
+
+        var canvas2 = document.getElementById("canvas2")
+        var context2 = canvas2.getContext('2d')
+
+        var canvas3 = document.getElementById('canvas3')
+        var context3 = canvas3.getContext('2d')
+
+        var img = new Image()
+
+        window.onload = function() {
+          canvas1.width = 800
+          canvas1.height = 800
+
+          canvas2.width = 800
+          canvas2.height = 800
+
+          canvas3.width = 800
+          canvas3.height = 800
+
+          img.src = '../img/002.jpg'
+
+          img.onload = function () {
+            context1.drawImage( img, 0, 0 )
+            context2.drawImage( img, 0, 0, canvas2.width, canvas2.height )
+            context3.drawImage( img, 0, 300, 700, 700, 50, 50, 700, 700 )
+          }
+        }
+      </script>
+    </body>
+</html>

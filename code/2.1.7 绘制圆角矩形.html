@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <title>2.1.7 绘制圆角矩形</title>
+    </head>
+    <style>
+        * {
+            margin: 50px auto;
+            text-align: center;
+        }
+    </style>
+    <body>
+        <canvas id="canvas" style="border: 1px solid #aaa; display:block;"></canvas>
+
+        <script>
+          var canvas = document.getElementById("canvas")
+          canvas.width = 800
+          canvas.height = 800
+
+          var context = canvas.getContext("2d")
+          fillRoundRect(context, 100, 100, 600, 500, 50, 'green')
+          strokeRoundRect(context, 95, 95, 610, 510, 55, 5, '#333')
+
+          function fillRoundRect(cxt, x, y, width, height, radius, fillStyle = 'black') {
+            cxt.save()
+            cxt.translate(x, y)
+            pathRoundRect(cxt, width, height, radius)
+            cxt.fillStyle = fillStyle
+            cxt.fill()
+            cxt.restore()
+          }
+
+          function strokeRoundRect(cxt, x, y, width, height, radius, lineWidth = 1, strokeStyle = 'black',) {
+            cxt.save()
+            cxt.translate(x, y)
+            pathRoundRect(cxt, width, height, radius)
+            cxt.lineWidth = lineWidth
+            cxt.strokeStyle = strokeStyle
+            cxt.stroke()
+            cxt.restore()
+          }
+
+          function pathRoundRect(cxt, width, height, radius) {
+            cxt.beginPath()
+            cxt.arc(width - radius, height - radius, radius, 0, Math.PI / 2)
+            cxt.lineTo(radius, height)
+            cxt.arc(radius, height - radius, radius, Math.PI / 2, Math.PI)
+            cxt.lineTo(0, radius)
+            cxt.arc(radius, radius, radius, Math.PI, Math.PI * 3 / 2)
+            cxt.lineTo(width - radius, 0)
+            cxt.arc(width - radius, radius, radius, Math.PI * 3 / 2, Math.PI * 2)
+            cxt.closePath()
+          }
+        </script>
+    </body>
+</html>
