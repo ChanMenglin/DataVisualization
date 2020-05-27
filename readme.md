@@ -8,7 +8,34 @@
 * [2.1 `context`](#21-context)
   * [2.1.1 绘制直线](#211-绘制直线)
   * [2.1.2 绘制简单图形](#212-绘制简单图形)
-  * [2.1.3 绘制弧线](#213-绘制弧线)
+  * [2.1.3 绘制矩形](#213-绘制矩形)
+  * [2.1.4 线条属性](#214-线条属性)
+  * [2.1.5 样式属性](#215-样式属性)
+    * [2.1.5.1 渐变色填充](#2151-渐变色填充)
+  * [2.1.6 图形变换](#216-图形变换)
+  * [2.1.7 绘制弧线](#217-绘制弧线)
+  * [2.1.8 贝塞尔曲线](#218-贝塞尔曲线)
+    * [2.1.8.1 二次贝塞尔曲线](#2181-二次贝塞尔曲线)
+    * [2.1.8.2 贝塞尔三次曲线](#2182-贝塞尔三次曲线)
+  * [2.1.9 文字渲染](#219-文字渲染)
+    * [2.1.9.1 字体绘制](#2191-字体绘制)
+    * [2.1.9.2 文字对齐](#2192-文字对齐)
+    * [2.1.9.3 文本测量](#2193-文本测量)
+* [2.2 Canvas 高级内容](#22-canvas-高级内容)
+  * [2.2.1 阴影](#221-阴影)
+  * [2.2.2 透明度](#222-透明度)
+  * [2.2.3 重叠](#223-重叠)
+  * [2.2.4 剪辑区域](#224-剪辑区域)
+  * [2.2.5 非0环绕原则](#225-非0环绕原则)
+  * [2.2.6 清空](#226-清空)
+  * [2.2.7 点击检测](#227-点击检测)
+  * [2.2.8 扩充 context](#228-扩充-context)
+* [2.3 Canvas 图像处理](#23-canvas-图像处理)
+  * [2.3.1 Canvas 图像基础](#231-canvas-图像基础)
+  * [2.3.2 离屏 Canvas](#232-离屏-canvas)
+  * [2.3.3 Canvas 进行像素级操作](#233-canvas-进行像素级操作)
+  * [2.3.4 创建 imageData](#234-canvas-imagedata)
+
 
 ## 1.1 基础
 
@@ -310,7 +337,6 @@ img.onload = function() {
 
 [渐变色填充](code/2.1.6.1%20渐变色填充.html)
 
-
 ### 2.1.6 图形变换
 
 * 位移 translate( x, y ) - 移动原点
@@ -405,6 +431,10 @@ context.stroke()
 [绘制月亮](code/2.1.7%20绘制月亮.html)
 
 ### 2.1.8 贝塞尔曲线
+
+[贝塞尔曲线 - Wikipedia](https://zh.wikipedia.org/wiki/%E8%B2%9D%E8%8C%B2%E6%9B%B2%E7%B7%9A)  
+[Bézier curve - Wikipedia](https://en.wikipedia.org/wiki/B%C3%A9zier_curve)  
+[深入理解贝塞尔曲线 - 知乎](https://juejin.im/post/5b854e1451882542fe28a53d)
 
 #### 2.1.8.1 二次贝塞尔曲线
 
@@ -506,6 +536,8 @@ context.textBaseline = // alphabetic (default)
   - hanging - 基于印度语
 ```
 
+![文本对齐](code/2.1.9.2%20文本对齐.html)
+
 #### 2.1.9.3 文字测量
 
 ```js
@@ -526,12 +558,16 @@ context.shadowOffsetY
 context.shadowBlur
 ```
 
+[剪纸效果](code/2.2.5%20剪纸效果.html)
+
 ### 2.2.2 透明度
 
 ```js
 // 全局透明度
 context.globalAlpha = 1 (default)
 ```
+
+[全局透明度](code/2.2.2%20全局透明度.html)
 
 ### 2.2.3 重叠
 
@@ -551,17 +587,28 @@ context.globalCompositeOperation =
   - 'xor'
 ```
 
+[CanvasRenderingContext2D.globalCompositeOperation - MDN](https://developer.mozilla.org/zh-CN/docs/Web/API/CanvasRenderingContext2D/globalCompositeOperation)
+
+[2.2.3 重叠](code/2.2.3%20重叠.html)
+
 ### 2.2.4 剪辑区域
 
 ```js
 context.clip()
 ```
 
---探照灯效果
+[Image View](code/2.3.2%20imageView.html)
 
 ### 2.2.5 非0环绕原则
 
--- 剪纸效果
+![非0环绕原则](img/2.2.5%20非0环绕原则.png)
+非0环绕原则
+
+[Nonzero-rule - Wikipedia](https://en.wikipedia.org/wiki/Nonzero-rule)
+
+如图，设定一个方向为 正， 一个方向为 负，从一个点引出一条直线，当直线与 正 方向相交记 1，当家头与 负 方向相交记 -1，将所有相交的记录的值求和，当和不为 0 则表示引出该直线的点在图像内部，反之为图像外部。
+
+[剪纸效果](code/2.2.5%20剪纸效果.html)
 
 ### 2.2.6 清空
 
@@ -583,9 +630,10 @@ var y = event.clientY - canvas.getBoundingClientRect().top
 
 ### 2.2.8 扩充 context
 
-以下两种方式实现的图形相同，第二种方式调用时跟简洁也更符合 context 的规范，但不建议直接复写 context 的方法（以下方式为直接复写 context 的 moveTo 方法），而是定义自己的上下文环境
+以下两种方式实现的图形相同，第二种方式调用时更简洁也更符合 context 的规范，但不建议直接复写 context 的方法（以下方式为直接复写 context 的 moveTo 方法），而是定义自己的上下文环境
 
 ```js
+// 方式一
 CanvasRenderingContext2D.prototype.fillStar = fucntion (x, y, r, R, rot = 0) {
   this.beginPath()
   for (var i = 0, i < 5; i++) {
@@ -605,6 +653,7 @@ context.fillStar(400, 400, 400, 300)
 ```
 
 ```js
+// 方式二
 var originalMoveTo = CanvasRenderingContext2D.prototype.moveTo
 CanvasRenderingContext2D.prototype.lastMoveToLoc = {}
 
@@ -676,7 +725,7 @@ context.drawImage(
   image, sx, sy, sw, sh, dx, dy, dw, dh
 )
 
-[canvas图像基础](code/2.3.1%20canvas图像基础.html)
+[Canvas 图像基础](code/2.3.1%20canvas图像基础.html)
 
 ### 2.3.2 离屏 canvas
 

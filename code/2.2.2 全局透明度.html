@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <title>2.2.2 全局透明度</title>
+    </head>
+    <style>
+        * {
+            margin: 50px auto;
+            text-align: center;
+        }
+    </style>
+    <body>
+      <h1>全局透明度</h1>
+
+      <canvas id="canvas" style="border: 1px solid #aaa; display:block;"></canvas>
+      context.globalAlpha = <font id="value">1.0</font>
+      <input type="range" id="range" min="0" max="1.0" step="0.01" value="1.0" style="width: 800px" />
+      <script>
+        var canvas = document.getElementById("canvas")
+        var context = canvas.getContext('2d')
+        var range = document.getElementById('range')
+        var value = document.getElementById('value')
+        canvas.width = 800
+        canvas.height = 800
+
+        context.globalAlpha = range.value // 全局透明度
+
+        drawCanvas()
+
+        range.oninput = function (e) {
+          context.globalAlpha = e.target.value
+          value.textContent = e.target.value
+          drawCanvas()
+        }
+
+        function drawCanvas() {
+          context.clearRect(0, 0, canvas.width, canvas.height)
+          context.save()
+          context.arc(400, 400, 300, 0, 2 * Math.PI, false)
+          context.arc(400, 400, 150, 0, 2 * Math.PI, true)
+          context.fillStyle = '#058'
+          context.fill()
+
+          context.restore()
+        }
+      </script>
+    </body>
+</html>
