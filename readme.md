@@ -798,6 +798,7 @@ canvas 图形库
 * [Canvas - MDN](https://developer.mozilla.org/zh-CN/docs/Web/API/Canvas_API#基础示例)
 * [Canvas教程 - MDN](https://developer.mozilla.org/zh-CN/docs/Web/API/Canvas_API/Tutorial)
 * [深入HTML5 Canvas](https://joshondesign.com/p/books/canvasdeepdive/title.html)
+* [HTML5 Canvas教程](http://www.html5canvastutorials.com/)
 * [Demo：一个基础的光线追踪器](https://developer.mozilla.org/zh-CN/docs/Web/API/Canvas_API/A_basic_ray-caster)
 
 [css3 filter](https://developer.mozilla.org/zh-CN/docs/Web/CSS/filter) - 对图像的处理
