@@ -788,9 +788,9 @@ Canvas Demo [模糊效果](code/blur/index.html)
 ---
 canvas 图形库
 
-- [canvasplus](https://code.google.com/archive/p/canvasplus/)
-- [ArtisanJS](http://www.ArtisanJS.com) | [Github](https://github.com/davidbrooks/Artisan)
-- [RGraph](https://www.rgraph.net/)
+* [canvasplus](https://code.google.com/archive/p/canvasplus/)
+* [ArtisanJS](http://www.ArtisanJS.com) | [Github](https://github.com/davidbrooks/Artisan)
+* [RGraph](https://www.rgraph.net/)
 
 ---
 参考：  
@@ -801,19 +801,23 @@ canvas 图形库
 * [HTML5 Canvas教程](http://www.html5canvastutorials.com/)
 * [Demo：一个基础的光线追踪器](https://developer.mozilla.org/zh-CN/docs/Web/API/Canvas_API/A_basic_ray-caster)
 
-[css3 filter](https://developer.mozilla.org/zh-CN/docs/Web/CSS/filter) - 对图像的处理
+---
+推荐：
+
+* [Canvas API中文文档首页地图](https://www.canvasapi.cn)
+* [css3 filter](https://developer.mozilla.org/zh-CN/docs/Web/CSS/filter) - 对图像的处理
 
 ---
 鸣谢：  
 感谢 [liuyubobobo](https://www.imooc.com/t/108955) 的课程
 
-  - [炫丽的倒计时效果Canvas绘图与动画基础
+  * [炫丽的倒计时效果Canvas绘图与动画基础
 ](https://www.imooc.com/learn/133)
-  - [Canvas绘图详解
+  * [Canvas绘图详解
 ](https://www.imooc.com/learn/185)
-- [Canvas玩转图像处理
+* [Canvas玩转图像处理
 ](https://www.imooc.com/video/9263)
-- [学写一个字
+* [学写一个字
 ](https://www.imooc.com/learn/284)
-- [Canvas玩儿转红包照片
+* [Canvas玩儿转红包照片
 ](https://www.imooc.com/learn/601)

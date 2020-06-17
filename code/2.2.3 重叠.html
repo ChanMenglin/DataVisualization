@@ -37,6 +37,7 @@
         </optgroup>
         <optgroup label="other">
           <option value="lighter">lighter</option>
+          <option value="darker">darker</option>
           <option value="copy">copy</option>
           <option value="xor">xor</option>
       </optgroup>
@@ -72,6 +73,7 @@
         }
         select.onchange = function (e) {
           context.globalCompositeOperation = e.target.value
+
           drawCanvas()
         }
       </script>
