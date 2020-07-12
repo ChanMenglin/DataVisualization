@@ -800,6 +800,7 @@ canvas 图形库
 * [深入HTML5 Canvas](https://joshondesign.com/p/books/canvasdeepdive/title.html)
 * [HTML5 Canvas教程](http://www.html5canvastutorials.com/)
 * [Demo：一个基础的光线追踪器](https://developer.mozilla.org/zh-CN/docs/Web/API/Canvas_API/A_basic_ray-caster)
+* [SVG and Canvas and WebGL, Oh My](http://dataquarium.io/svg-canvas-webgl/#:~:text=SVG%20and%20Canvas%20and%20WebGL%2C%20Oh%20My%201,handle.%20Fortunately%2C%20you%27re%20not%20completely%20out%20of%20luck)
 
 ---
 推荐：
