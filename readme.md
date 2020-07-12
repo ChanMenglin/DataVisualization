@@ -1,6 +1,8 @@
-# Canvas
+# DataVisualization(Web) - 数据可视化
 
-> html5 中的标签 `<canvas></canvas>`
+> svg  
+> canvas  
+> WebGL  
 
 ## 目录
 
