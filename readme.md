@@ -1,8 +1,13 @@
 # DataVisualization(Web) - 数据可视化
 
-> svg  
-> canvas  
-> WebGL  
+> SVG Canvas 和 WebGL 的对比：[SVG and Canvas and WebGL, Oh My](http://dataquarium.io/svg-canvas-webgl/#:~:text=SVG%20and%20Canvas%20and%20WebGL%2C%20Oh%20My%201,handle.%20Fortunately%2C%20you%27re%20not%20completely%20out%20of%20luck)  
+> SVG - [SVG - MDN](https://developer.mozilla.org/zh-CN/docs/Web/SVG)  
+> Canvas - [Canvas 标签 - MDN](https://developer.mozilla.org/zh-CN/docs/Web/HTML/Element/canvas) [Canvas API - MDN](https://developer.mozilla.org/zh-CN/docs/Web/API/Canvas_API)  
+> WebGL - [WebGL API - MDN](https://developer.mozilla.org/zh-CN/docs/Web/API/WebGL_API)  
+
+---
+
+## Cnavas
 
 ## 目录
 
@@ -45,19 +50,19 @@
 <cnavas width="1024" height="768"></canvas>
 ```
 
-> 不建议使用 css 的方式设置 canvas 的大小，而是直接使用 `width` `height` 属性
+> 不建议使用 css 的方式设置 Canvas 的大小，而是直接使用 `width` `height` 属性
 
 ```html
 <canvas id="canvas">
     <!-- 处理兼容性问题（方法一）
-        只有在不兼容的浏览器上才会显示 canvas 标签内的内容 -->
-    您的浏览器不支持 canvas
+        只有在不兼容的浏览器上才会显示 Canvas 标签内的内容 -->
+    您的浏览器不支持 Canvas
 </canvas>
 
 <script>
     var canvas = document.getElementById("canvas")
 
-    // 也可以使用这种方式设置 canvas 的大小
+    // 也可以使用这种方式设置 Canvas 的大小
     canvas.width = 1027
     canvas.heiht = 768
 
@@ -77,13 +82,13 @@
 var context = canvas.getContext("2d")
 ```
 
-> 原点：canvas 左上角为  
+> 原点：Canvas 左上角为  
 > x 轴正向：水平向右  
 > y 轴正向：竖直向下  
 
 ### 2.1.1 绘制直线
 
-> `canvas` 中的绘图是状态设置 - 先设置状态，再绘制
+> `Canvas` 中的绘图是状态设置 - 先设置状态，再绘制
 
 ```js
 // moveTo （将画笔）移动到（x, Y）
@@ -256,7 +261,7 @@ context.closePath()
 fillStyle:  color - css 颜色表示形式
             grandient - createLinearGradient（线性渐变色）、createLinearGradient（镜像渐变色）
             image - 图片（使用 createPattern）
-            canvas - 另一个 canvas（使用 createPattern）
+            Canvas - 另一个 Canvas（使用 createPattern）
             video - 视频（使用 createPattern）
 ```
 
@@ -320,7 +325,7 @@ context.fillStyle = grd
 // 图片填充
 var pattern = context.createPattern(
   image, // 1. javascript image 对象 
-        // 2. 另一个 canvas 对象
+        // 2. 另一个 Canvas 对象
         // 3. video 对象
   repeat-dtyle: no-repeat // 不重复
                 repeat-x // 延 x 轴重复
@@ -348,8 +353,8 @@ img.onload = function() {
 > `translate` 是叠加的
 
 ```js
-context.save() // 保存 canvas 当前的状态
-context.restore() // 还原上一次 save 时 canvas 的状态
+context.save() // 保存 Canvas 当前的状态
+context.restore() // 还原上一次 save 时 Canvas 的状态
 ```
 
 > `save` 和 `restore` 总是成对出现，这样就可以解决 `translate` 叠加的问题
@@ -485,7 +490,7 @@ context.fillText('Hello World!', 40, 400)
 
 context.lineWidth = 5
 context.strokeStyle = '#058'
-context.strokeText('I can show string in canvas', 40, 200)
+context.strokeText('I can show string in Canvas', 40, 200)
 
 context.fillText('It is toooooooooooooooo long!', MARGIN_LEFT, MARGIN_TOP + 40*(RADIUS+1) + 100, 550)
 ```
@@ -547,7 +552,7 @@ context.measureText(string).width // 文字在 canva 中所占宽度
 // 在使用前应设置好相应的 font 属性，measureText 会根据 font 属性进行计算
 ```
 
-## 2.2 canvas 高级内容
+## 2.2 Canvas 高级内容
 
 ### 2.2.1 阴影
 
@@ -685,9 +690,9 @@ context.moveTo(400, 400)
 context.fillStra(400, 300)
 ```
 
-## 2.3 canvas 图像处理
+## 2.3 Canvas 图像处理
 
-### 2.3.1 canvas 图像基础
+### 2.3.1 Canvas 图像基础
 
 ```js
 // 第一种方式
@@ -698,8 +703,8 @@ context.drawImage(
 )
 ```
 
-> 如果只传入三个参数（image, dx, dy）canvas 不会对图像进行缩放处理，超出 canvas 画布部分会被裁剪  
-> 如果传入绘制的尺寸（dw, dh）canvas 会对图像进行缩放
+> 如果只传入三个参数（image, dx, dy）Canvas 不会对图像进行缩放处理，超出 Canvas 画布部分会被裁剪  
+> 如果传入绘制的尺寸（dw, dh）Canvas 会对图像进行缩放
 
 ```js
 var image = new Image()
@@ -710,7 +715,7 @@ image.onload = function () {
 }
 ```
 
-[canvas图像基础](code/2.3.1%20canvas图像基础.html)  
+[Canvas图像基础](code/2.3.1%20canvas图像基础.html)  
 [任意缩放图像](code/2.3.1%20任意缩放图像.html)
 
 ```js
@@ -718,7 +723,7 @@ image.onload = function () {
 context.drawImage(
   image, // javascript Image 对象 或者 canva 对象
   sx, sy, sw, sh, // 取愿图像的范围（一部分）
-  dx, dy, dw, dh // 绘制到 canvas 画布的范围（显示取到的图像的 canva 画布的指定区域）
+  dx, dy, dw, dh // 绘制到 Canvas 画布的范围（显示取到的图像的 canva 画布的指定区域）
 )
 ```
 
@@ -727,14 +732,14 @@ context.drawImage(
   image, sx, sy, sw, sh, dx, dy, dw, dh
 )
 
-[Canvas 图像基础](code/2.3.1%20canvas图像基础.html)
+[Canvas 图像基础](code/2.3.1%20Canvas图像基础.html)
 
-### 2.3.2 离屏 canvas
+### 2.3.2 离屏 Canvas
 
 [给图像加水印](code/2.3.2%20给图像加水印.html)  
 [Image View](code/2.3.2%20imageView.html)
 
-### 2.3.3 canvas 进行像素级操作
+### 2.3.3 Canvas 进行像素级操作
 
 ```js
 // 获取 image 的像素信息
@@ -750,7 +755,7 @@ imageData 对象
 imageData.data
 
 ```js
-// 将 imageData 放入 canvas 中
+// 将 imageData 放入 Canvas 中
 context.putImageData(
   imageData, // 图像的像素信息
   dx, dy, // 
@@ -781,16 +786,16 @@ Canvas Demo [模糊效果](code/blur/index.html)
 
 ---
 
-兼容性：[explorercanvas](https://github.com/arv/explorercanvas) - 可兼容 ie 6、7、8等浏览器
+兼容性：[explorerCanvas](https://github.com/arv/explorercanvas) - 可兼容 ie 6、7、8等浏览器
 
 ```js
 <!--[if IE]><script type="text/javascript" src="../excanvas.js"></script><![endif]-->
 ```
 
 ---
-canvas 图形库
+Canvas 图形库
 
-* [canvasplus](https://code.google.com/archive/p/canvasplus/)
+* [Canvasplus](https://code.google.com/archive/p/canvasplus/)
 * [ArtisanJS](http://www.ArtisanJS.com) | [Github](https://github.com/davidbrooks/Artisan)
 * [RGraph](https://www.rgraph.net/)
 
@@ -802,7 +807,6 @@ canvas 图形库
 * [深入HTML5 Canvas](https://joshondesign.com/p/books/canvasdeepdive/title.html)
 * [HTML5 Canvas教程](http://www.html5canvastutorials.com/)
 * [Demo：一个基础的光线追踪器](https://developer.mozilla.org/zh-CN/docs/Web/API/Canvas_API/A_basic_ray-caster)
-* [SVG and Canvas and WebGL, Oh My](http://dataquarium.io/svg-canvas-webgl/#:~:text=SVG%20and%20Canvas%20and%20WebGL%2C%20Oh%20My%201,handle.%20Fortunately%2C%20you%27re%20not%20completely%20out%20of%20luck)
 
 ---
 推荐：
