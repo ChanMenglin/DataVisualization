@@ -715,7 +715,7 @@ image.onload = function () {
 }
 ```
 
-[Canvas图像基础](code/canvas/2.3.1%20canvas图像基础.html)  
+[Canvas 图像基础](code/canvas/2.3.1%20canvas图像基础.html)  
 [任意缩放图像](code/canvas/2.3.1%20任意缩放图像.html)
 
 ```js
