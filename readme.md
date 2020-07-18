@@ -28,7 +28,7 @@
     * [2.1.9.1 字体绘制](#2191-字体绘制)
     * [2.1.9.2 文本对齐](#2192-文本对齐)
     * [2.1.9.3 文字测量](#2193-文字测量)
-* [2.2 Canvas 高级内容](#22-canvas-高级内容)
+* [2.2 Canvas 高级内容](#22-Canvas-高级内容)
   * [2.2.1 阴影](#221-阴影)
   * [2.2.2 透明度](#222-透明度)
   * [2.2.3 重叠](#223-重叠)
@@ -37,7 +37,7 @@
   * [2.2.6 清空](#226-清空)
   * [2.2.7 点击检测](#227-点击检测)
   * [2.2.8 扩充 context](#228-扩充-context)
-* [2.3 Canvas 图像处理](#23-canvas-图像处理)
+* [2.3 Canvas 图像处理](#23-Canvas-图像处理)
   * [2.3.1 Canvas 图像基础](#231-canvas-图像基础)
   * [2.3.2 离屏 Canvas](#232-离屏-canvas)
   * [2.3.3 Canvas 进行像素级操作](#233-canvas-进行像素级操作)
@@ -117,7 +117,7 @@ context.strokeStyle = "#005588" // 设置线条的颜色
 context.stroke() // 绘制线条
 ```
 
-[画一条直线](code/canvas/2.1.1%20画一条直线.html)
+[画一条直线](code/Canvas/2.1.1%20画一条直线.html)
 
 ### 2.1.2 绘制简单图形
 
@@ -137,9 +137,9 @@ context.fill() // 填充
 
 > `beginPath` & `closePath` 不总是成对出现
 
-> 一般采用 `beginPath` 和 `closePath` 相结合绘制封闭图形，如果使用 `lineTo` 绘制封闭图形会产生暇疵（在 `lineWidth` 不为 1 时），而使用 `closePath` 就不会有这个问题 [绘制封闭图形](code/canvas/2.1.2%20绘制封闭图形.html)
+> 一般采用 `beginPath` 和 `closePath` 相结合绘制封闭图形，如果使用 `lineTo` 绘制封闭图形会产生暇疵（在 `lineWidth` 不为 1 时），而使用 `closePath` 就不会有这个问题 [绘制封闭图形](code/Canvas/2.1.2%20绘制封闭图形.html)
 
-> 在使用 `fillStyle` 同时使用 `strokeStyle` 时，应先使用 `fillStyle` 填充颜色再使用 `strokeStyle` 绘制边框，否则 `fillStyle` 会将一半边框宽度的区域填充 [绘制填充图形](code/canvas/2.1.1%20绘制填充图形.html)
+> 在使用 `fillStyle` 同时使用 `strokeStyle` 时，应先使用 `fillStyle` 填充颜色再使用 `strokeStyle` 绘制边框，否则 `fillStyle` 会将一半边框宽度的区域填充 [绘制填充图形](code/Canvas/2.1.1%20绘制填充图形.html)
 
 绘制出来的线条均为黑色，这是因为 canvans 绘图是基于状态的，靠后的样式会覆盖前面的样式  
 
@@ -189,8 +189,8 @@ context.strokeStyle = "black"
 context.stroke()
 ```
 
-[绘制简单图形](code/canvas/2.1.2%20绘制简单图形.html)
-[绘制七巧板](code/canvas/2.1.2%20绘制七巧板.html)
+[绘制简单图形](code/Canvas/2.1.2%20绘制简单图形.html)
+[绘制七巧板](code/Canvas/2.1.2%20绘制七巧板.html)
 
 ### 2.1.3 绘制矩形
 
@@ -239,7 +239,7 @@ context.strokeRect(200, 550, 500, 200)
 context.closePath()
 ```
 
-[绘制矩形](code/canvas/2.1.3%20绘制矩形.html)
+[绘制矩形](code/Canvas/2.1.3%20绘制矩形.html)
 
 ### 2.1.4 线条属性
 
@@ -248,7 +248,7 @@ context.closePath()
   - butt（default）
   - round
   - square
-  ![lineCap](img/canvas/2.1.4%20lineCap.png)
+  ![lineCap](img/Canvas/2.1.4%20lineCap.png)
 * lineJoin - 线条相交时的样式
   - miter（default）尖角 - miterLimit: 10（default）限制  miter
   - bevel 斜接
@@ -342,7 +342,7 @@ img.onload = function() {
 }
 ```
 
-[渐变色填充](code/canvas/2.1.6.1%20渐变色填充.html)
+[渐变色填充](code/Canvas/2.1.6.1%20渐变色填充.html)
 
 ### 2.1.6 图形变换
 
@@ -359,7 +359,7 @@ context.restore() // 还原上一次 save 时 Canvas 的状态
 
 > `save` 和 `restore` 总是成对出现，这样就可以解决 `translate` 叠加的问题
 
-[图形变换](code/canvas/2.1.6%20图形变换.html)
+[图形变换](code/Canvas/2.1.6%20图形变换.html)
 
 * `transform(a, b, c, d, e, f)` 变换矩阵 - `transform(1, 0, 0, 1, 0, 0)` (default) 表示不改变图形  
 
@@ -376,7 +376,7 @@ b, c - 水平、垂直倾斜
 e, f - 水平、垂直位移
 ```
 
-[托章 - 绘制星空](code/canvas/2.1.6%20绘制星空.html)
+[托章 - 绘制星空](code/Canvas/2.1.6%20绘制星空.html)
 
 ### 2.1.7 绘制弧线
 
@@ -390,7 +390,7 @@ context.arc(
 )
 ```
 
-![`startingSngle` 和 `endingAngle的进一步说明`](img/canvas/2.1.7%20arc弧度.png)  
+![`startingSngle` 和 `endingAngle的进一步说明`](img/Canvas/2.1.7%20arc弧度.png)  
 `startingSngle` 和 `endingAngle` 的进一步说明
 
 ```js
@@ -411,9 +411,9 @@ context.strokeStyle="#005588"
 context.stroke()
 ```
 
-[画圆](code/canvas/2.1.7%20画圆.html)  
-[绘制圆角矩形](code/canvas/2.1.7%20绘制圆角矩形.html)  
-[拓展 - 数字时钟](code/canvas/clock/clock.html)
+[画圆](code/Canvas/2.1.7%20画圆.html)  
+[绘制圆角矩形](code/Canvas/2.1.7%20绘制圆角矩形.html)  
+[拓展 - 数字时钟](code/Canvas/clock/clock.html)
 
 ```js
 // arcTo
@@ -434,8 +434,8 @@ context.storkeStyle = 'red'
 context.stroke()
 ```
 
-[绘制弧线](code/canvas/2.1.7%20绘制弧线.html)  
-[绘制月亮](code/canvas/2.1.7%20绘制月亮.html)
+[绘制弧线](code/Canvas/2.1.7%20绘制弧线.html)  
+[绘制月亮](code/Canvas/2.1.7%20绘制月亮.html)
 
 ### 2.1.8 贝塞尔曲线
 
@@ -445,7 +445,7 @@ context.stroke()
 
 #### 2.1.8.1 二次贝塞尔曲线
 
-> [参考 - Canvas Quadratic Curve Example](http://blogs.sitepointstatic.com/examples/tech/canvas-curves/quadratic-curve.html)
+> [参考 - Canvas Quadratic Curve Example](http://blogs.sitepointstatic.com/examples/tech/Canvas-curves/quadratic-curve.html)
 
 ```js
 // 二次贝塞尔曲线
@@ -456,11 +456,11 @@ context.quadraticCurveTo(
 )
 ```
 
-[使用贝塞尔曲线绘制月亮](code/canvas/2.1.8%20使用贝塞尔曲线绘制月亮.html)  
+[使用贝塞尔曲线绘制月亮](code/Canvas/2.1.8%20使用贝塞尔曲线绘制月亮.html)  
 
 #### 2.1.8.2 贝塞尔三次曲线
 
-> [参考 - Canvas Bézier Curve Example](http://blogs.sitepointstatic.com/examples/tech/canvas-curves/bezier-curve.html)
+> [参考 - Canvas Bézier Curve Example](http://blogs.sitepointstatic.com/examples/tech/Canvas-curves/bezier-curve.html)
 
 ```js
 // 贝塞尔三次曲线
@@ -495,7 +495,7 @@ context.strokeText('I can show string in Canvas', 40, 200)
 context.fillText('It is toooooooooooooooo long!', MARGIN_LEFT, MARGIN_TOP + 40*(RADIUS+1) + 100, 550)
 ```
 
-[拓展 - 数字时钟](code/canvas/clock/clock.html)
+[拓展 - 数字时钟](code/Canvas/clock/clock.html)
 
 #### 2.1.9.1 字体绘制
 
@@ -543,7 +543,7 @@ context.textBaseline = // alphabetic (default)
   - hanging - 基于印度语
 ```
 
-![文本对齐](code/canvas/2.1.9.2%20文本对齐.html)
+![文本对齐](code/Canvas/2.1.9.2%20文本对齐.html)
 
 #### 2.1.9.3 文字测量
 
@@ -565,7 +565,7 @@ context.shadowOffsetY
 context.shadowBlur
 ```
 
-[剪纸效果](code/canvas/2.2.5%20剪纸效果.html)
+[剪纸效果](code/Canvas/2.2.5%20剪纸效果.html)
 
 ### 2.2.2 透明度
 
@@ -574,7 +574,7 @@ context.shadowBlur
 context.globalAlpha = 1 (default)
 ```
 
-[全局透明度](code/canvas/2.2.2%20全局透明度.html)
+[全局透明度](code/Canvas/2.2.2%20全局透明度.html)
 
 ### 2.2.3 重叠
 
@@ -596,7 +596,7 @@ context.globalCompositeOperation =
 
 [CanvasRenderingContext2D.globalCompositeOperation - MDN](https://developer.mozilla.org/zh-CN/docs/Web/API/CanvasRenderingContext2D/globalCompositeOperation)
 
-[2.2.3 重叠](code/canvas/2.2.3%20重叠.html)
+[2.2.3 重叠](code/Canvas/2.2.3%20重叠.html)
 
 ### 2.2.4 剪辑区域
 
@@ -604,18 +604,18 @@ context.globalCompositeOperation =
 context.clip()
 ```
 
-[Image View](code/canvas/2.3.2%20imageView.html)
+[Image View](code/Canvas/2.3.2%20imageView.html)
 
 ### 2.2.5 非0环绕原则
 
-![非0环绕原则](img/canvas/2.2.5%20非0环绕原则.png)
+![非0环绕原则](img/Canvas/2.2.5%20非0环绕原则.png)
 非0环绕原则
 
 [Nonzero-rule - Wikipedia](https://en.wikipedia.org/wiki/Nonzero-rule)
 
 如图，设定一个方向为 正， 一个方向为 负，从一个点引出一条直线，当直线与 正 方向相交记 1，当家头与 负 方向相交记 -1，将所有相交的记录的值求和，当和不为 0 则表示引出该直线的点在图像内部，反之为图像外部。
 
-[剪纸效果](code/canvas/2.2.5%20剪纸效果.html)
+[剪纸效果](code/Canvas/2.2.5%20剪纸效果.html)
 
 ### 2.2.6 清空
 
@@ -715,8 +715,8 @@ image.onload = function () {
 }
 ```
 
-[Canvas图像基础](code/canvas/2.3.1%20canvas图像基础.html)  
-[任意缩放图像](code/canvas/2.3.1%20任意缩放图像.html)
+[Canvas图像基础](code/Canvas/2.3.1%20canvas图像基础.html)  
+[任意缩放图像](code/Canvas/2.3.1%20任意缩放图像.html)
 
 ```js
 // 第二种方式
@@ -727,17 +727,17 @@ context.drawImage(
 )
 ```
 
-![drawImage 第二种用法](img/canvas/2.3.1%20drawImage.png)
+![drawImage 第二种用法](img/Canvas/2.3.1%20drawImage.png)
 context.drawImage(
   image, sx, sy, sw, sh, dx, dy, dw, dh
 )
 
-[Canvas 图像基础](code/canvas/2.3.1%20Canvas图像基础.html)
+[Canvas 图像基础](code/Canvas/2.3.1%20Canvas图像基础.html)
 
 ### 2.3.2 离屏 Canvas
 
-[给图像加水印](code/canvas/2.3.2%20给图像加水印.html)  
-[Image View](code/canvas/2.3.2%20imageView.html)
+[给图像加水印](code/Canvas/2.3.2%20给图像加水印.html)  
+[Image View](code/Canvas/2.3.2%20imageView.html)
 
 ### 2.3.3 Canvas 进行像素级操作
 
@@ -751,7 +751,7 @@ imageData 对象
   - data // 图像的像素信息
 ```
 
-![imageData.data](img/canvas/2.3.3%20imageData.data.png)
+![imageData.data](img/Canvas/2.3.3%20imageData.data.png)
 imageData.data
 
 ```js
@@ -764,10 +764,10 @@ context.putImageData(
 )
 ```
 
-![putImageData](img/canvas/2.3.3%20putImageData.png)
+![putImageData](img/Canvas/2.3.3%20putImageData.png)
 context.putImageData( imageData, dx, dy, dirtyX, dirrtyY,  drityW, dirtyH )
 
-[Image Editer](code/canvas/2.3.3%20imageediter.html)
+[Image Editer](code/Canvas/2.3.3%20imageediter.html)
 
 ### 2.3.4 创建 imageData
 
@@ -777,12 +777,12 @@ inmageData = context.createImageDate(
 )
 ```
 
-[Create ImageData](code/canvas/2.3.4%20createImageData.html)
+[Create ImageData](code/Canvas/2.3.4%20createImageData.html)
 
 ---
-Canvas Demo [拓展 - 数字时钟](code/canvas/clock/clock.html)  
-Canvas Demo [学写一个字](code/canvas/hand-writing/index.html)  
-Canvas Demo [模糊效果](code/canvas/blur/index.html)
+Canvas Demo [拓展 - 数字时钟](code/Canvas/clock/clock.html)  
+Canvas Demo [学写一个字](code/Canvas/hand-writing/index.html)  
+Canvas Demo [模糊效果](code/Canvas/blur/index.html)
 
 ---
 
