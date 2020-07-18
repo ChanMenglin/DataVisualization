@@ -1,0 +1,107 @@
+@media (prefers-color-scheme: dark) {
+  body { background: black; color:  #ddd; }
+}
+
+@media (prefers-color-scheme: light) {
+  body { background:  #eee; color: black; }
+}
+
+body {
+  margin: 20px auto;
+  padding: 0 0;
+}
+
+* {
+  text-align: center;
+}
+
+#canvas {
+  display: block;
+  margin: 0 auto;
+  /* 不要在 css 中定义 canvas 的大小 */
+}
+
+#contraller {
+  margin: 0 auto;
+}
+
+.op_btn {
+  float: right;
+  margin: 10px 0 0 10px;
+  border: 2px solid #aaa;
+  width: 80px;
+  height: 40px;
+  line-height: 40px;
+  font-size: 20px;
+  text-align: center;
+  border-radius: 5px 5px;
+  font-weight: bold;
+  font-family: PingFang, Microsoft Yahei, Arial;
+}
+
+.clear_fix {
+  clear: both;
+}
+
+.color_btn {
+  float: left;
+  margin: 10px 10px 0 0;
+  border: 5px solid white;
+  width: 40px;
+  height: 40px;
+  border-radius: 5px 5px;
+  cursor: pointer;
+}
+
+.color_btn:hover {
+  border: 5px solid violet;
+}
+
+.color_btn_selected {
+  border: 5px solid blueviolet;
+}
+
+@media (prefers-color-scheme: dark) {
+  #default_btn {
+    background-color: wheat;
+  }
+
+  .op_btn {
+    color: pointer;
+    background-color: black;
+  }
+  .op_btn:hover {
+    background-color: #333;
+  }
+}
+
+@media (prefers-color-scheme: light) {
+  #default_btn {
+    background-color: black;
+  }
+
+  .op_btn {
+    color: pointer;
+    background-color: white;
+  }
+  .op_btn:hover {
+    background-color: #def;
+  }
+}
+
+#blue_btn {
+  background-color: blue;
+}
+
+#green_btn {
+  background-color: green;
+}
+
+
+#red_btn {
+  background-color: red;
+}
+
+#orange_btn {
+  background-color: orange;
+}

@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <title>2.2.2 全局透明度</title>
+    </head>
+    <style>
+        * {
+            margin: 50px auto;
+            text-align: center;
+        }
+        @media (prefers-color-scheme: dark) {
+          body { background: black; color:  #ddd; }
+        }
+
+        @media (prefers-color-scheme: light) {
+          body { background:  #eee; color: black; }
+        }
+    </style>
+    <body>
+      <h1>全局透明度</h1>
+      <a href="https://developer.mozilla.org/zh-CN/docs/Web/API/CanvasRenderingContext2D/globalCompositeOperation">CanvasRenderingContext2D.globalCompositeOperation - MDN</a>
+      <canvas id="canvas" style="border: 1px solid #aaa; display:block;"></canvas>
+      context.globalCompositeOperation = <font id="value">1.0</font>
+      <select id="select">
+        <optgroup label="source">
+          <option value="source-over">source-over(default)</option>
+          <option value="source-atop">source-atop</option>
+          <option value="source-in">source-in</option>
+          <option value="source-out">source-out</option>
+        </optgroup>
+        <optgroup label="destination">
+          <option value="destination-over">destination-over</option>
+          <option value="destination-atop">destination-atop</option>
+          <option value="destination-in">destination-in</option>
+          <option value="destination-out">destination-out</option>
+        </optgroup>
+        <optgroup label="other">
+          <option value="lighter">lighter</option>
+          <option value="darker">darker</option>
+          <option value="copy">copy</option>
+          <option value="xor">xor</option>
+      </optgroup>
+      </select>
+      <script>
+        var canvas = document.getElementById("canvas")
+        var context = canvas.getContext('2d')
+        var select = document.getElementById('select')
+
+        canvas.width = 800
+        canvas.height = 800
+
+        context.globalCompositeOperation = select.value // 全局透明度
+
+        drawCanvas()
+
+        function drawCanvas() {
+          context.clearRect(0, 0, canvas.width, canvas.height)
+          context.save()
+          context.beginPath()
+          // context.rect(100, 100, 500, 500)
+          context.arc(300, 300, 300, 0, 2 * Math.PI)
+          context.fillStyle = '#074'
+          context.fill()
+
+          context.beginPath()
+          context.rect(300, 300, 500, 500)
+          // context.arc(600, 600, 200, 0, 2 * Math.PI)
+          context.fillStyle = '#058'
+          context.fill()
+
+          context.restore()
+        }
+        select.onchange = function (e) {
+          context.globalCompositeOperation = e.target.value
+
+          drawCanvas()
+        }
+      </script>
+    </body>
+</html>

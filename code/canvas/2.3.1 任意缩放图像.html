@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <title>2.3.1 任意缩放图像</title>
+    </head>
+    <style>
+        * {
+            margin: 50px auto;
+            text-align: center;
+        }
+        @media (prefers-color-scheme: dark) {
+          body { background: black; color:  #ddd; }
+        }
+
+        @media (prefers-color-scheme: light) {
+          body { background:  #eee; color: black; }
+        }
+    </style>
+    <body>
+      <h1>任意缩放图像</h1>
+      <canvas id="canvas" style="border: 1px solid black; display:block;"></canvas>
+      <input type="range" id="scale-range" min="0.5" max="3.0" step="0.01" value="1.0" style="width: 800px" />
+      <script>
+        var canvas = document.getElementById("canvas")
+        var context = canvas.getContext('2d')
+        var slider = document.getElementById('scale-range')
+
+        var img = new Image()
+
+        window.onload = function() {
+          canvas.width = 1024
+          canvas.height = 768
+
+          var scale = slider.value
+
+          img.src = '../img/002.jpg'
+
+          img.onload = function () {
+            drawImageByScale( scale )
+
+            slider.oninput = function (event) {
+              scale = event.target.value
+
+              drawImageByScale( scale )
+            }
+          }
+        }
+
+        function drawImageByScale (scale) {
+          var imageWidth = canvas.width * scale
+          var imageHeight = canvas.height * scale
+
+          var dx = canvas.width / 2 - imageWidth / 2
+          var dy = canvas.height / 2 - imageHeight / 2
+
+          context.clearRect(0, 0, canvas.width, canvas.height)
+          context.drawImage( img, dx, dy, imageWidth, imageHeight )
+        }
+      </script>
+    </body>
+</html>

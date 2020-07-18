@@ -1,0 +1,262 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <title>2.3.3 Image Editer</title>
+    </head>
+    <style>
+        * {
+            margin: 50px auto;
+            text-align: center;
+        }
+        @media (prefers-color-scheme: dark) {
+          body { background: black; color:  #ddd; }
+        }
+
+        @media (prefers-color-scheme: light) {
+          body { background:  #eee; color: black; }
+        }
+
+    </style>
+    <body>
+      <h1>Image Editer</h1>
+      <small>如果在本地运行并出现跨域问，使用 open /Applications/Google\ Chrome.app --args --allow-file-access-from-files 在终端打开 chrome 解决</small>
+      <small><a href="https://stackoverflow.com/questions/9972049/cross-origin-data-in-html5-canvas">参考</a></small>
+      <div style="margin: 20px auto; width: 100%;">
+        <canvas id="canvasa" width="800" height="560" style="border: 1px solid gray; margin: 10px 10px;"></canvas>
+        <canvas id="canvasb" width="800" height="560" style="border: 1px solid gray; margin: 10px 10px"></canvas>
+      </div>
+      <div style="margin: 20px auto; width: 100%;">
+        <input id="copy-button" type="button" value="Copy - 复制" />
+        <input id="draw-button" type="button" value="Draw - 绘制为全白" />
+        <br />
+        <input id="remove-r-button" type="button" value="Remove r - 将 r 设为 0" />
+        <input id="remove-g-button" type="button" value="Remove g - 将 g 设为 0" />
+        <input id="remove-b-button" type="button" value="Remove b - 将 b 设为 0" />
+        <br />
+        <input id="gray-effect-button" type="button" value="Gray Effect - 灰度滤镜" />
+        <input id="black-white-effect-button" type="button" value="Black White Effect - 黑白滤镜" />
+        <input id="reverse-effect-button" type="button" value="Reverse Effect - 反色滤镜" />
+        <input id="blur-effect-button" type="button" value="Blur Effect - 模糊滤镜" />
+        <input id="moszicr-effect-button" type="button" value="Moszic Effect - 马赛克滤镜" />
+      </div>
+      <script>
+        var canvasa = document.getElementById("canvasa")
+        var contexta = canvasa.getContext('2d')
+
+        var canvasb = document.getElementById("canvasb")
+        var contextb = canvasb.getContext('2d')
+
+        var img = new Image()
+
+        window.onload = function() {
+
+          img.crossOrigin = "Anonymous"
+          img.setAttribute('crossOrigin', '');
+          img.src = '../img/002.jpg'
+
+          img.onload = function () {
+            // set up editer
+            contexta.drawImage( img, 0, 0, canvasa.width, canvasa.height )
+          }
+        }
+
+        // copy
+        document.getElementById('copy-button').onclick = function (e) {
+          e.preventDefault()
+          editImage(null)
+        }
+
+        // draw
+        document.getElementById('draw-button').onclick = function (e) {
+          e.preventDefault()
+          editImage( (imageData) => {
+            for (let i = 0; i < imageData.width * imageData.height; i++) {
+              imageData.data[4*i+0] = 255 // r
+              imageData.data[4*i+1] = 255 // g
+              imageData.data[4*i+2] = 255 // b
+              // imageData.data[4*i+3] = 1 // a
+            }
+          })
+        }
+
+        // remove-r
+        document.getElementById('remove-r-button').onclick = function (e) {
+          e.preventDefault()
+          editImage( (imageData) => {
+            for (let i = 0; i < imageData.width * imageData.height; i++) {
+              imageData.data[4*i+0] = 0 // r
+            }
+          })
+        }
+
+        // remove-g
+        document.getElementById('remove-g-button').onclick = function (e) {
+          e.preventDefault()
+          editImage( (imageData) => {
+            for (let i = 0; i < imageData.width * imageData.height; i++) {
+              imageData.data[4*i+1] = 0 // g
+            }
+          })
+        }
+
+        // remove-b
+        document.getElementById('remove-b-button').onclick = function (e) {
+          e.preventDefault()
+          editImage( (imageData) => {
+            for (let i = 0; i < imageData.width * imageData.height; i++) {
+              imageData.data[4*i+2] = 0 // b
+            }
+          })
+        }
+
+        // gray-effect
+        document.getElementById('gray-effect-button').onclick = function (e) {
+          e.preventDefault()
+          editImage( (imageData) => {
+            for (let i = 0; i < imageData.width * imageData.height; i++) {
+              var r = imageData.data[4*i+0] // r
+              var g = imageData.data[4*i+1] // g
+              var b = imageData.data[4*i+2] // b
+
+              var gray = r*0.3 + g*0.59 + b*0.11 // 灰度计算
+
+              imageData.data[4*i+0] = gray // r
+              imageData.data[4*i+1] = gray // g
+              imageData.data[4*i+2] = gray // b
+            }
+          })
+        }
+
+        // black-white-effect
+        document.getElementById('black-white-effect-button').onclick = function (e) {
+          e.preventDefault()
+          editImage( (imageData) => {
+            for (let i = 0; i < imageData.width * imageData.height; i++) {
+              var r = imageData.data[4*i+0] // r
+              var g = imageData.data[4*i+1] // g
+              var b = imageData.data[4*i+2] // b
+
+              var gray = r*0.3 + g*0.59 + b*0.11 // 灰度计算
+              var v = gray > 255 / 2 ? 255 : 0
+
+              imageData.data[4*i+0] = v // r
+              imageData.data[4*i+1] = v // g
+              imageData.data[4*i+2] = v // b
+            }
+          })
+        }
+
+        // reverse-effect
+        document.getElementById('reverse-effect-button').onclick = function (e) {
+          e.preventDefault()
+          editImage( (imageData) => {
+            for (let i = 0; i < imageData.width * imageData.height; i++) {
+              var r = imageData.data[4*i+0] // r
+              var g = imageData.data[4*i+1] // g
+              var b = imageData.data[4*i+2] // b
+
+              imageData.data[4*i+0] = 255 - r
+              imageData.data[4*i+1] = 255 - g
+              imageData.data[4*i+2] = 255 - b
+            }
+          })
+        }
+
+        // blur-effect
+        document.getElementById('blur-effect-button').onclick = function (e) {
+          e.preventDefault()
+          editImage( (imageData) => {
+            var tmpImageData = imageData
+
+            var blurR = 5 // 模糊半径
+            var totalNum = (blurR * 2 + 1)*(blurR * 2 + 1)
+
+            for (let w = blurR; w < imageData.width - blurR; w++) {
+              for (let h = blurR; h < imageData.height - blurR; h++) {
+
+                var total = { r: 0, g: 0, b: 0 }
+
+                for (let px = -blurR; px < blurR; px++) {
+                  for (let py = -blurR; py < blurR; py++) {
+                    var x = w + px
+                    var y = h + py
+
+                    var p = x * imageData.width + y
+                    total.r += tmpImageData.data[p*4+0]
+                    total.g += tmpImageData.data[p*4+1]
+                    total.b += tmpImageData.data[p*4+2]
+                  }
+                }
+
+                var p = w + imageData.width + h
+
+                imageData.data[p*4+0] = total.r / totalNum
+                imageData.data[p*4+1] = total.g / totalNum
+                imageData.data[p*4+2] = total.b / totalNum
+              }
+            }
+          })
+        }
+
+        // moszicr-effect
+        document.getElementById('moszicr-effect-button').onclick = function (e) {
+          e.preventDefault()
+          editImage( (imageData) => {
+            var tmpImageData = imageData
+
+            var size = 16 // 大小
+            var totalNum = size*size
+
+            for (let w = 0; w < imageData.width; w += size) {
+              for (let h = 0; h < imageData.height; h += size) {
+
+                var total = { r: 0, g: 0, b: 0 }
+
+                for (let px = 0; px < size; px++) {
+                  for (let py = 0; py < size; py++) {
+                    var x = w + px
+                    var y = h + py
+
+                    var p = x * imageData.width + y
+                    total.r += tmpImageData.data[p*4+0]
+                    total.g += tmpImageData.data[p*4+1]
+                    total.b += tmpImageData.data[p*4+2]
+                  }
+                }
+
+                var p = w + imageData.width + h
+                var res = { r: 0, g: 0, b: 0 }
+
+                res.r = total.r / totalNum
+                res.g = total.g / totalNum
+                res.b = total.b / totalNum
+
+                for (let dx = 0; dx < size; dx++) {
+                  for (let dy = 0; dy < size; dy++) {
+
+                    var x = w + dx
+                    var y = h + dy
+
+                    var p = x*imageData.width + y
+                    imageData.data[p*4 + 0] = res.r
+                    imageData.data[p*4 + 1] = res.g
+                    imageData.data[p*4 + 2] = res.b
+                  }
+                }
+              }
+            }
+          })
+        }
+
+        function editImage(callback) {
+          var imageData = contexta.getImageData( 0, 0, canvasa.width, canvasa.height )
+
+          callback && callback(imageData)
+
+          // contextb.putImageData( imageData, 0, 0 )
+          contextb.putImageData( imageData, 0, 0, 0, 0, canvasb.width, canvasb.height )
+        }
+      </script>
+    </body>
+</html>

@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html>
+  <head lang="en">
+    <meta charset="UTF-8" />
+    <!-- <meta name="viewport"
+      content="
+        width=[pixel_value | device-width],
+        height=[pixel_value | device-height],
+        initial-scale=float_value,
+        minimum-scale=float_value,
+        maximum-scale=float_value,
+        user-scalable=[yes | no]
+      "
+    /> -->
+    <meta name="viewport"
+      content="
+        width = device-width,
+        height = device-height,
+        initial-scale = 1.0,
+        minimum-scale = 1.0,
+        maximum-scale = 1.0,
+        user-scalable = no
+      "
+    >
+    <title>Canvas Demo - 学写一个字</title>
+    <link href="handwriting.css" rel="stylesheet" type="text/css" />
+  </head>
+  <body>
+    <h1>Canvas Demo - 学写一个字</h1>
+    <canvas id="canvas">
+      您的浏览器不兼容 Canvas
+    </canvas>
+    <div id="contraller">
+      <div id="default_btn" class="color_btn color_btn_selected"></div>
+      <div id="blue_btn" class="color_btn"></div>
+      <div id="green_btn" class="color_btn"></div>
+      <div id="red_btn" class="color_btn"></div>
+      <div id="orange_btn" class="color_btn"></div>
+
+      <div id="clear_btn" class="op_btn">清 除</div>
+      <div class="clear_fix"></div>
+    </div>
+    <script src="jquery-2.1.3.min.js"></script>
+    <script src="handwriting.js"></script>
+  </body>
+</html>

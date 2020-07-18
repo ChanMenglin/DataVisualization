@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <title>2.1.6 绘制星空</title>
+    </head>
+    <style>
+        * {
+            margin: 50px auto;
+            text-align: center;
+        }
+        @media (prefers-color-scheme: dark) {
+          body { background: black; color:  #ddd; }
+        }
+
+        @media (prefers-color-scheme: light) {
+          body { background:  #eee; color: black; }
+        }
+    </style>
+    <body>
+      <h1>绘制星空</h1>
+      <canvas id="canvas" style="border: 1px solid #aaa; display:block;"></canvas>
+
+      <script>
+        window.onload = function () {
+          var canvas = document.getElementById("canvas")
+          canvas.width = 800
+          canvas.height = 800
+
+          var context = canvas.getContext("2d")
+
+          context.fillStyle = 'black'
+          context.beginPath()
+          context.fillRect(0, 0, canvas.width, canvas.height)
+          context.closePath()
+
+          for (let i = 0; i < 200; i++) {
+            var r = Math.random() * 10 + 10
+            var x = Math.random() * canvas.width
+            var y = Math.random() * canvas.height
+            var a = Math.random() * 360
+
+            drawStar(context, r, x, y, a)
+          }
+        }
+
+        function drawStar(cxt, R, x, y, rot = 0) {
+          cxt.save()
+
+          cxt.translate(x, y)
+          cxt.rotate(rot / 180 * Math.PI)
+          cxt.scale(R, R)
+
+          starPath(cxt)
+
+          cxt.fillStyle = '#fb3'
+          // cxt.strokeStyle = '#fd5'
+          // cxt.lineJoin = 'round'
+          cxt.fill()
+          // cxt.stroke()
+
+          cxt.restore()
+        }
+
+        function starPath(cxt) {
+          cxt.beginPath()
+
+          for (let i = 0; i < 5; i++) {
+            cxt.lineTo( Math.cos( (18 + i*72)/180 * Math.PI),
+                        -Math.sin( (18 + i*72)/180 * Math.PI),
+                      )
+            cxt.lineTo( Math.cos( (54 + i*72)/180 * Math.PI) * 0.5,
+                        -Math.sin( (54 + i*72)/180 * Math.PI) * 0.5,
+                      )
+          }
+
+          cxt.closePath()
+        }
+
+      </script>
+    </body>
+</html>

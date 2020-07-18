@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <title>2.1.6 图形变换</title>
+    </head>
+    <style>
+        * {
+            margin: 50px auto;
+            text-align: center;
+        }
+        @media (prefers-color-scheme: dark) {
+          body { background: black; color:  #ddd; }
+        }
+
+        @media (prefers-color-scheme: light) {
+          body { background:  #eee; color: black; }
+        }
+    </style>
+    <body>
+        <h1>位移 - translate</h1>
+        位移叠加
+        <canvas id="canvasTranslate1" style="border: 1px solid #aaa; display:block;"></canvas>
+        使用 context.save() 和 cantext.restore() 解决此问题
+        <canvas id="canvasTranslate2" style="border: 1px solid #aaa; display:block;"></canvas>
+
+        <script>
+            var canvasTranslate1 = document.getElementById("canvasTranslate1")
+            canvasTranslate1.width = 800
+            canvasTranslate1.height = 800
+
+            var contextTranslate1 = canvasTranslate1.getContext("2d")
+            contextTranslate1.fillStyle = 'red'
+            contextTranslate1.translate( 100, 100 )
+            contextTranslate1.fillRect(0, 0, 400, 400)
+
+            contextTranslate1.fillStyle = 'green'
+            contextTranslate1.translate( 300, 300 )
+            contextTranslate1.fillRect(0, 0, 400, 400)
+
+            // ------------- canvasTranslate2 -------------
+            var canvasTranslate2 = document.getElementById("canvasTranslate2")
+            canvasTranslate2.width = 800
+            canvasTranslate2.height = 800
+
+            var contextTranslate2 = canvasTranslate2.getContext("2d")
+            contextTranslate2.fillStyle = 'red'
+            contextTranslate2.save()
+            contextTranslate2.translate( 100, 100 )
+            contextTranslate2.fillRect(0, 0, 400, 400)
+            contextTranslate2.restore()
+
+            contextTranslate2.fillStyle = 'green'
+            contextTranslate2.save()
+            contextTranslate2.translate( 300, 300 )
+            contextTranslate2.fillRect(0, 0, 400, 400)
+            contextTranslate2.restore()
+        </script>
+    </body>
+</html>
