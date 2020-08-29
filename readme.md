@@ -5,5 +5,5 @@
 > Canvas - [Canvas 标签 - MDN](https://developer.mozilla.org/zh-CN/docs/Web/HTML/Element/canvas) [Canvas API - MDN](https://developer.mozilla.org/zh-CN/docs/Web/API/Canvas_API)  
 > WebGL - [WebGL API - MDN](https://developer.mozilla.org/zh-CN/docs/Web/API/WebGL_API)  
 
-* [SVG](svg.md)
-* [Canvas](canvas.md)
+* [SVG](SVG.md)
+* [Canvas](Canvas.md)
