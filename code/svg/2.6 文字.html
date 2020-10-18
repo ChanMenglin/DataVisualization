@@ -1,0 +1,144 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+  <!-- Required meta tags -->
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+  <!-- Bootstrap CSS -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.0/dist/css/bootstrap.min.css"
+    integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
+
+  <title>Hello, world!</title>
+  <style>
+    @media (prefers-color-scheme: dark) {
+      body {
+        background: black;
+        color: #ddd;
+      }
+    }
+
+    @media (prefers-color-scheme: light) {
+      body {
+        background: #eee;
+        color: black;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <h1 class=" text-center">2.6 文字</h1>
+  <ul class="nav justify-content-center nav-pills mb-3" id="pills-tab" role="tablist">
+    <li class="nav-item" role="presentation">
+      <a class="nav-link active" data-toggle="pill" href="#one" role="tab" aria-selected="true">text</a>
+    </li>
+    <li class="nav-item" role="presentation">
+      <a class="nav-link" data-toggle="pill" href="#two" role="tab" aria-selected="false">径向渐变</a>
+    </li>
+    <li class="nav-item" role="presentation">
+      <a class="nav-link" data-toggle="pill" href="#three" role="tab" aria-selected="false">通用属性</a>
+    </li>
+  </ul>
+  <div class="tab-content" id="pills-tabContent">
+    <!-- text -->
+    <div class="tab-pane fade show active" id="one" role="tabpanel">
+      <h2 class="text-center">text</h2>
+      <div class="d-flex justify-content-center">
+        <svg width="1000" height="1000" version="1.1" xmlns="http://www.w3.org/2000/svg">
+          <text x="50" y="100" fill="gray" font-family="sans-serif" font-size="100px" text-anchor="start">English | 中文</text>
+          <line x1="30" y1="100" x2="800" y2="100" stroke="red" />
+          <line x1="50" y1="30" x2="50" y2="120" stroke="red" />
+
+          <text x="50" y="200" fill="gray" font-family="sans-serif" font-size="100px" text-anchor="middle">English | 中文</text>
+          <line x1="30" y1="200" x2="800" y2="200" stroke="red" />
+          <line x1="50" y1="130" x2="50" y2="220" stroke="red" />
+
+          <text x="50" y="300" fill="gray" font-family="sans-serif" font-size="100px" text-anchor="end">English | 中文</text>
+          <line x1="30" y1="300" x2="800" y2="300" stroke="red" />
+          <line x1="50" y1="230" x2="50" y2="320" stroke="red" />
+
+          <text x="50" y="400" fill="gray" font-family="sans-serif" font-size="100px" text-anchor="inherit">English | 中文</text>
+          <line x1="30" y1="400" x2="800" y2="400" stroke="red" />
+          <line x1="50" y1="330" x2="50" y2="420" stroke="red" />
+        </svg>
+      </div>
+    </div>
+    <!-- 径向渐变 -->
+    <div class="tab-pane fade" id="two" role="tabpanel">
+      <h2 class="text-center">径向渐变</h2>
+      <div class="d-flex justify-content-center">
+        <svg width="1000" height="1000" version="1.1"
+          xmlns="http://www.w3.org/2000/svg">
+          <defs>
+              <radialGradient id="Gradient"
+                    cx="0.5" cy="0.5" r="0.5" fx="0.25" fy="0.25">
+                <stop offset="0%" stop-color="red"/>
+                <stop offset="100%" stop-color="blue"/>
+              </radialGradient>
+          </defs>
+          <rect x="100" y="100" rx="15" ry="15" width="800" height="800"
+                fill="url(#Gradient)" stroke="black" stroke-width="2"/>
+          <circle cx="500" cy="500" r="400" fill="transparent" stroke="white" stroke-width="2"/>
+          <circle cx="500" cy="500" r="2" fill="white" stroke="white"/>
+          <circle cx="300" cy="300" r="2" fill="white" stroke="white"/>
+          <text x="510" y="500" fill="white" font-family="sans-serif" font-size="10pt">(cx,cy)</text>
+          <text x="310" y="300" fill="white" font-family="sans-serif" font-size="10pt">(fx,fy)</text>
+
+        </svg>
+      </div>
+    </div>
+    <!-- 通用属性 -->
+    <div class="tab-pane fade" id="three" role="tabpanel">
+      <h2 class="text-center">通用属性</h2>
+      <p class="text-center">存在兼容性问题，请使用 Chrome 浏览器查看</p>
+      <div class="d-flex justify-content-center">
+        <?xml version="1.0" standalone="no"?>
+          <svg width="1000" height="1000" version="1.1" xmlns="http://www.w3.org/2000/svg">
+            <defs>
+                <radialGradient id="GradientPad"
+                      cx="0.5" cy="0.5" r="0.4" fx="0.75" fy="0.75"
+                      spreadMethod="pad">
+                  <stop offset="0%" stop-color="red"/>
+                  <stop offset="100%" stop-color="blue"/>
+                </radialGradient>
+                <radialGradient id="GradientRepeat"
+                      cx="0.5" cy="0.5" r="0.4" fx="0.75" fy="0.75"
+                      spreadMethod="repeat">
+                  <stop offset="0%" stop-color="red"/>
+                  <stop offset="100%" stop-color="blue"/>
+                </radialGradient>
+                <radialGradient id="GradientReflect"
+                      cx="0.5" cy="0.5" r="0.4" fx="0.75" fy="0.75"
+                      spreadMethod="reflect">
+                  <stop offset="0%" stop-color="red"/>
+                  <stop offset="100%" stop-color="blue"/>
+                </radialGradient>
+            </defs>
+            <rect x="10" y="10" rx="15" ry="15" width="450" height="450" fill="url(#GradientPad)"/>
+            <rect x="10" y="550" rx="15" ry="15" width="450" height="450" fill="url(#GradientRepeat)"/>
+            <rect x="500" y="550" rx="15" ry="15" width="450" height="450" fill="url(#GradientReflect)"/>
+            <text x="60" y="50" fill="white" font-family="sans-serif" font-size="12pt">Pad</text>
+            <text x="60" y="600" fill="white" font-family="sans-serif" font-size="12pt">Repeat</text>
+            <text x="550" y="600" fill="white" font-family="sans-serif" font-size="12pt">Reflect</text>
+
+          </svg>
+      </div>
+    </div>
+  </div>
+
+  <!-- Optional JavaScript -->
+  <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+  <script src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.slim.min.js"
+    integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj"
+    crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"
+    integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo"
+    crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.0/dist/js/bootstrap.min.js"
+    integrity="sha384-OgVRvuATP1z7JjHLkuOU7Xw704+h835Lr+6QL9UvYjZE3Ipu6Tp75j7Bh/kR0JKI"
+    crossorigin="anonymous"></script>
+</body>
+
+</html>

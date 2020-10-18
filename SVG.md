@@ -55,7 +55,33 @@ SVG 直接嵌入 HTML - 直接将 SVG 文件的内容写入 HTML 中（支持 HT
 </svg>
 ```
 
-### 1.1.2 SVG 坐标
+### 1.1.2 SVG 的 世界 视野 视窗
+
+* 世界是无穷大的
+* 视野是观潮世界的窗口
+* SVG 中 使用 viewBox 控制视野
+  * `width`, `height` - 控制视窗
+  * SVG 代码 - 定义世界
+  * `viewBox`, [`preserveAspectRatio`](https://developer.mozilla.org/zh-CN/docs/Web/SVG/Attribute/preserveAspectRatio) - 控制视野
+
+> * SVG 标签中可定义宽（`width`）高（`height`）来表示 SVG 渲染的区域大小（视窗），也可使用央视表定义。视窗是浏览器用来渲染 SVG 内容的区域。
+> * SVG 中的内容就是在定义世界，SVG 中显示的线条，图形，颜色，样式都是在定义世界。
+> * 观看世界的矩形区域就是视野，使用 `viewBox` 定义
+>
+> 理想情况下 视窗和视野尺寸一致，浏览器可以完美的将视野填充到视窗内；如果视窗与视野的尺寸不一致，就有如何填充的问题，可使用 `preserveAspectRatio` 控制。
+
+### 1.1.3 SVG 的图形分组
+
+[`<g />`](https://developer.mozilla.org/zh-CN/docs/Web/SVG/Element/g) - 把属性赋给一整个元素集合。这是它唯一的目的。
+
+```xml
+<g fill="red">
+  <rect x="0" y="0" width="10" height="10" />
+  <rect x="20" y="0" width="10" height="10" />
+</g>
+```
+
+### 1.1.4 坐标系统
 
 SVG 的 坐标与 Canvas 的坐标相同（计算机的绘图系统基本采用相同的坐标系统），但与数学中的坐标有较大差异。
 
@@ -63,6 +89,125 @@ SVG 的 坐标与 Canvas 的坐标相同（计算机的绘图系统基本采用�
 * 单位：坐标以像素为单位
 * x 轴正方向：x 轴正方向是向右
 * y 轴正方向：y 轴正方向是向下
+
+### 1.1.5 四种坐标系
+
+1. **用户坐标系**：也叫做原始坐标系，基于世界的坐标系，视野的定义时基于用户坐标系的
+2. **自身坐标系**：每一个图形或者分组都会产生一个自身坐标系，自身坐标系用于定义一些自身属性
+3. **前驱坐标系**：父容器的坐标系，前驱坐标系通过 transform 变换之后形成图形的自身坐标系
+4. **参考坐标系**：对一个图形进行观潮测量时使用的坐标系
+
+### 1.1.6 坐标变换
+
+#### 1.1.6.1 定义
+
+* 数学上坐标变换：通过一定的方法将一个坐标系的坐标转换为另一个坐标系的坐标的过程
+* SVG上的坐标：对一个到另一个坐标系的变换的描述
+
+#### 1.1.6.2 线性变换
+
+线性变换方程:  
+
+```text
+x` = ax + cy + e
+y` = bx + dy + f
+```
+
+变换矩阵：
+
+```text
+|a c e|
+|b d f|
+|0 0 1|
+```
+
+#### 1.1.6.3 平移
+
+···text
+x` = 1x + 0y + 10
+y` = 0x + 1y + 10
+
+|1 0 10|
+|0 1 10|
+|0 0 1|
+···
+
+#### 1.1.6.4 旋转
+
+使用极坐标变换矩阵
+
+极坐标方程：
+
+```text
+x = r*cos(α)
+x = r*sin(α)
+```
+
+旋转 θ 度
+
+```text
+x = r*cos(α + θ)
+x = r*sin(α + θ)
+
+X'=r⋅cos(α)cos(θ) − r⋅sin(α)sin(θ) = cos(θ)X − sin(θ)Y + 0
+Y'=r⋅cos(α)sin(θ) + r⋅sin(α)cos(θ) = sin(θ)X + cos(θ)Y + 0
+
+|cos(θ) -sin(θ) 0|
+|sin(θ) cos(θ)  0|
+|0      0       1|
+```
+
+#### 1.1.6.5 缩放
+
+#### 1.1.6.6 transform 属性
+
+定义前驱坐标系到⾃自⾝身坐标系的线性变换
+
+* `rotate(<deg>)`
+* `translate(<x>,<y>)`
+* `scale(<sx>,<sy>)`
+* `matrix(<a>,<b>,<c>,<d>,<e>,<f>)`
+
+[transform - MDN](https://developer.mozilla.org/zh-CN/docs/Web/SVG/Attribute/transform)  
+[Chapter 8: Coordinate Systems, Transformations and Units - W3C](https://www.w3.org/TR/SVG/coords.html#TransformMatrixDefined)
+
+所有接下来的变形都会用一个元素的 `transform` 属性总结。变形可以连缀，只要把它们连接起来就行，用空格隔开。
+
+如果使用了变形，你会在元素内部建立了一个新的坐标系统，应用了这些变形，你为该元素和它的子元素指定的单位可能不是 1:1 像素映射。但是依然会根据这个变形进行歪曲、斜切、转换、缩放操作。
+
+SVG 允许你无缝嵌入别的 SVG 元素。因此你可以利用内部 SVG 元素的属性`viewBox`、属性 `width` 和属性 `height` 简单创建一个新的坐标系统。
+
+```xml
+<!-- 矩形将是指定的两倍大 -->
+<svg xmlns="http://www.w3.org/2000/svg" version="1.1">
+  <svg width="100" height="100" viewBox="0 0 50 50">
+    <rect width="50" height="50" />
+  </svg>
+</svg> 
+```
+
+* **平移** `translate(x, y)` - 把元素移动一段距离，甚至可以根据相应的属性定位它。如果 `y` 没有指定，默认为0。
+
+```xml
+<rect x="0" y="0" width="10" height="10" transform="translate(30,40)" />
+```
+
+* **旋转** `rotate(deg)` - 旋转一个元素。值是用角度数指定的。
+
+```xml
+<rect x="20" y="20" width="20" height="20" transform="rotate(45)" />
+```
+
+* **斜切** `skewX(deg)` / `skewY(deg)` - 利用一个矩形制作一个斜菱形。每个值都是用角度数指定的。
+* **缩放** `scale()` - 改变元素的尺寸。它需要两个数字，作为比率计算如何缩放。0.5 表示收缩到 50%。如果忽略第二个数字，默认等于第一个值。
+* **复杂变形** `matrix()` - 所有上面的变形可以表达为一个 2x3 的变形矩阵。可以直接用 `matrix(a, b, c, d, e, f)`变形组合一些变形，设置结果矩阵。
+
+### 1.1.7 坐标观察
+
+* `getBBox()` 获得当前元素所占的矩形区域
+* `getCTM()` 获得视窗坐标系到当前元素⾃自⾝身坐标系的变换矩阵
+* `getScreenCTM()` 获得浏览器坐标系到当前元素⾃自⾝身坐标系的变换矩阵
+* `getTransformToElement()` 获得从指定元素的⾃自⾝身坐标系到当前元素的⾃自⾝身坐标系的变换矩阵
 
 ## 2.1 基本形状
 
@@ -227,7 +372,7 @@ SVG 的 坐标与 Canvas 的坐标相同（计算机的绘图系统基本采用�
 <path d="m50,100..." />
 ```
 
-[2.2 示例](code/svg/2.2%20示例.html) d - 画直线
+[2.2 d](code/svg/2.2%20d.html) d - 画直线
 
 
 ### 2.2.2 Lineto
@@ -244,7 +389,7 @@ SVG 的 坐标与 Canvas 的坐标相同（计算机的绘图系统基本采用�
 * `H x` 或 `h l` - `x` 为纵坐标，`l` 为长度，表示向 x 轴方向的延伸
 * `V y` 或 `v l` - `y` 为横坐标，`l` 为长度，表示向 y 轴方向的延伸
 
-[2.2 示例](code/svg/2.2%20示例.html) d - 画直线
+[2.2 d](code/svg/2.2%20d.html) d - 画直线
 
 ### 2.2.3 Curveto
 
@@ -266,7 +411,7 @@ SVG 的 坐标与 Canvas 的坐标相同（计算机的绘图系统基本采用�
 * 二次方贝塞尔曲线：`T` - `T x,y` 者 `t dx,dy` - 对应于绝对坐标和相对距离
 * 立方贝塞尔曲线：`S` - `S cx,cy x,y` 者 `s dcx,dcy dx,dy` - `(d)cx` 指定第二个控制点
 
-[2.2 示例](code/svg/2.2%20示例.html) d - 画曲线
+[2.2 d](code/svg/2.2%20d.html) d - 画曲线
 
 ### 2.2.4 Arcto
 
@@ -278,12 +423,12 @@ SVG 的 坐标与 Canvas 的坐标相同（计算机的绘图系统基本采用�
 
 * `A rx,ry xAxisRotate LargeArcFlag,SweepFlag x,y`
   * `rx` 和 `ry` - x 和 y 方向的半径
+  * `xAxisRotate` - 改变 x 轴相对于当前引用框架的方向（在 Gecko 7 中，看起来没什么效果）
   * `LargeArcFlag`（0 或 1） - 画小弧（0）或画大弧（1）
   * `SweepFlag`（0 或 1） - 弧是顺时针方向（1）还是逆时针方向（0）
   * `x` 和 `y` - 目的地的坐标
-  * `xAxisRotate` - 改变 x 轴相对于当前引用框架的方向（在 Gecko 7 中，看起来没什么效果）
   
-[2.2 示例](code/svg/2.2%20示例.html) d - 画弧线
+[2.2 d](code/svg/2.2%20d.html) d - 画弧线
 
 ### 2.2.5 ClosePath
 
@@ -297,7 +442,7 @@ SVG 的 坐标与 Canvas 的坐标相同（计算机的绘图系统基本采用�
 
 * `Z` `z` - 两种写法作用都一样（无参数）
 
-### 2.2.6 综合示例
+### 2.2.6 综合d
 
 ```text
 d=" M37,17 || v15 || H14 || V17 || H37 ||z // M50,0 || H0 || v50 || h50 || V0 || z"
@@ -320,7 +465,7 @@ d=" M37,17 || v15 || H14 || V17 || H37 ||z // M50,0 || H0 || v50 || h50 || V0 ||
   * `V0` - 画一条垂直线直到到达 y 轴坐标 0。这将画线到 50,0 ，即 `M` 的值
   * `z` - 小写的 `z` 和大写的 `Z` 都是闭合一系列 svg 线段
 
-[2.2 示例](code/svg/2.2%20示例.html) d - 属性的综合示例
+[2.2 d](code/svg/2.2%20d.html) d - 属性的综合示例
 
 ## 2.3 基本属性
 
@@ -568,6 +713,8 @@ d=" M37,17 || v15 || H14 || V17 || H37 ||z // M50,0 || H0 || v50 || h50 || V0 ||
   
 </svg>
 
+[2.4 渐变](code/svg/2.4%20渐变.html) 渐变 - 线性渐变
+
 ### 2.4.2 径向渐变
 
 * `<radialGradient>` 从一个点开始发散绘制渐变。创建径向渐变需要在 SVG 文件的 `<defs>` 的内部添加一个 `<radialGradient>` 元素
@@ -632,6 +779,8 @@ d=" M37,17 || v15 || H14 || V17 || H37 ||z // M50,0 || H0 || v50 || h50 || V0 ||
   
 </svg>
 
+[2.4 渐变](code/svg/2.4%20渐变.html) 渐变 - 径向渐变
+
 ### 2.4.3 通用属性
 
 线性渐变和径向渐变都需要一些额外的属性用于描述渐变过程
@@ -641,8 +790,7 @@ d=" M37,17 || v15 || H14 || V17 || H37 ||z // M50,0 || H0 || v50 || h50 || V0 ||
   * `reflect`- 会让渐变持续，它的效果是与渐变本身是相反的，以 100% 偏移位置的颜色开始，逐渐偏移到 0% 位置的颜色，然后再回到 100% 偏移位置的颜色
   * `repeat` - 会让渐变继续，跳回到最初的颜色然后继续渐变
 
-  <?xml version="1.0" standalone="no"?>
-
+<?xml version="1.0" standalone="no"?>
 <svg width="220" height="220" version="1.1" xmlns="http://www.w3.org/2000/svg">
   <defs>
       <radialGradient id="GradientPad"
@@ -678,6 +826,8 @@ d=" M37,17 || v15 || H14 || V17 || H37 ||z // M50,0 || H0 || v50 || h50 || V0 ||
   * `userSpaceOnUse` 使用绝对单元，所以你必须知道对象的位置，并将渐变放在同样地位置上
 *  `gradientTransform` 给渐变添加额外的变化，参考 [Transformations](https://developer.mozilla.org/en-US/Web/SVG/Tutorial/Basic_Transformations)
 
+[2.4 渐变](code/svg/2.4%20渐变.html) 渐变 - 径向渐变
+
 ## 2.5 笔刷
 
 跟渐变一样，[<pattern>](https://developer.mozilla.org/zh-CN/docs/Web/SVG/Element/pattern) 需要放在SVG文档的 `<defs>` 内部。  
@@ -707,35 +857,15 @@ d=" M37,17 || v15 || H14 || V17 || H37 ||z // M50,0 || H0 || v50 || h50 || V0 ||
 </svg>
 ```
 
-<?xml version="1.0" standalone="no"?>
-<svg width="200" height="200" xmlns="http://www.w3.org/2000/svg" version="1.1">
-  <defs>
-    <linearGradient id="Gradient1">
-      <stop offset="5%" stop-color="white"/>
-      <stop offset="95%" stop-color="blue"/>
-    </linearGradient>
-    <linearGradient id="Gradient2" x1="0" x2="0" y1="0" y2="1">
-      <stop offset="5%" stop-color="red"/>
-      <stop offset="95%" stop-color="orange"/>
-    </linearGradient>
-    <pattern id="Pattern" x="0" y="0" width=".25" height=".25">
-      <rect x="0" y="0" width="50" height="50" fill="skyblue"/>
-      <rect x="0" y="0" width="25" height="25" fill="url(#Gradient2)"/>
-      <circle cx="25" cy="25" r="20" fill="url(#Gradient1)" fill-opacity="0.5"/>
-    </pattern>
-  </defs>
-
-  <rect fill="url(#Pattern)" stroke="black" x="0" y="0" width="200" height="200"/>
-</svg>
-
-* `patternUnits` - 描述使用的属性单元。这同之前使用的objectBoundingBox默认值一样，所以当一个值为 1 时，它被缩放到应用 pattern 对象的宽高值。因此，我们希望 pattern 垂直和水平的重复4次，所以宽高被设置位0.25，这一位置 pattern 的宽高仅为总外框大小的 0.25。
+* `patternUnits` - 描述使用的属性单元。这同之前使用的`objectBoundingBox` 默认值一样，所以当一个值为 1 时，它被缩放到应用 pattern 对象的宽高值。因此，我们希望 pattern 垂直和水平的重复 4 次，所以宽高被设置位 0.25，这一位置 pattern 的宽高仅为总外框大小的 0.25。
 
 * `patternContentUnits` - 描述 pattern 元素基于基本形状使用的单元系统 `userSpaceOnUse` (默认值)，与 `patternUnits` 属性相反，这意味着除非你至少指定其中一个属性值（ `patternContentUnits` 或 `patternUnits` ），否则在 pattern 中绘制的形状将与 pattern 元素使用的坐标系不同，
 
 > 如果对象改变了大小，pattern 会自适应其大小，但是对象里面的内容不会自适应。通过改变 `patternContentUnits` 属性，我们可以把所有的元素放到相同的单元系统中，
 
-参考：[`<pattern>`](https://developer.mozilla.org/zh-CN/docs/Web/SVG/Element/pattern)
+参考：[`<pattern>`](https://developer.mozilla.org/zh-CN/docs/Web/SVG/Tutorial/Patterns)
 
+[2.5 笔刷](code/svg/2.5%20笔刷.html)
 
 ## 2.6 文字
 
@@ -743,6 +873,8 @@ d=" M37,17 || v15 || H14 || V17 || H37 ||z // M50,0 || H0 || v50 || h50 || V0 ||
 
 * `x` - 文本在视口中 x 轴的位置
 * `y` - 文本在视口中 y 轴的位置
+* `dx` - 从当前位置，用一个水平偏移开始绘制文本。可以提供一个数列，可以应用到连续的字体，因此每次累积一个偏移。
+* `dy` - 从当前位置，用一个竖直偏移开始绘制文本。可以提供一个数列，可以应用到连续的字体，因此每次累积一个偏移。
 * `text-anchor`
   * `start`、`middle`、`end` 或 `inherit` - 允许决定从这一点开始的文本流的方向。
 * `fill` - 设置文本填充颜色
@@ -763,9 +895,9 @@ d=" M37,17 || v15 || H14 || V17 || H37 ||z // M50,0 || H0 || v50 || h50 || V0 ||
 该元素用来标记大块文本的子部分，它必须是一个 `text` 元素或别的 `tspan` 元素的子元素。一个典型的用法是把句子中的一个词变成粗体红色。
 
 * `x` - 为容器设置一个新绝对 x 坐标。它覆盖了默认的当前的文本位置。可以提供一个数列，它们将一个一个地应用到 `tspan` 元素内的每一个字符上。
-* `dx` - 从当前位置，用一个水平偏移开始绘制文本。可以提供一个值数列，可以应用到连续的字体，因此每次累积一个偏移。
+* `dx` - 从当前位置，用一个水平偏移开始绘制文本。可以提供一个数列，可以应用到连续的字体，因此每次累积一个偏移。
 
-> 此外还有属性y和属性dy作垂直转换。
+> 此外还有属性 y 和属性 dy 作垂直转换。
 
 * `rotate` - 把所有的字符旋转一个角度。如果是一个数列，则使每个字符旋转分别旋转到那个值，剩下的字符根据最后一个值旋转。
 * `textLength` - 给出字符串的计算长度。它意味着如果它自己的度量文字和长度不满足这个提供的值，则允许渲染引擎精细调整字型的位置。
@@ -803,61 +935,14 @@ d=" M37,17 || v15 || H14 || V17 || H37 ||z // M50,0 || H0 || v50 || h50 || V0 ||
 </text>
 ```
 
-## 2.7 组 - g
-
-[`<g />`](https://developer.mozilla.org/zh-CN/docs/Web/SVG/Element/g) - 把属性赋给一整个元素集合。这是它唯一的目的。
-
-```xml
-<g fill="red">
-  <rect x="0" y="0" width="10" height="10" />
-  <rect x="20" y="0" width="10" height="10" />
-</g>
-```
-
-## 2.8 变换
-
-[transform - MDN](https://developer.mozilla.org/zh-CN/docs/Web/SVG/Attribute/transform)  
-[Chapter 8: Coordinate Systems, Transformations and Units - W3C](https://www.w3.org/TR/SVG/coords.html#TransformMatrixDefined)
-
-所有接下来的变形都会用一个元素的 `transform` 属性总结。变形可以连缀，只要把它们连接起来就行，用空格隔开。
-
-如果使用了变形，你会在元素内部建立了一个新的坐标系统，应用了这些变形，你为该元素和它的子元素指定的单位可能不是 1:1 像素映射。但是依然会根据这个变形进行歪曲、斜切、转换、缩放操作。
-
-SVG 允许你无缝嵌入别的 SVG 元素。因此你可以利用内部 SVG 元素的属性`viewBox`、属性 `width` 和属性 `height` 简单创建一个新的坐标系统。
-
-```xml
-<!-- 矩形将是指定的两倍大 -->
-<svg xmlns="http://www.w3.org/2000/svg" version="1.1">
-  <svg width="100" height="100" viewBox="0 0 50 50">
-    <rect width="50" height="50" />
-  </svg>
-</svg> 
-```
-
-* **平移** `translate(x, y)` - 把元素移动一段距离，甚至可以根据相应的属性定位它。如果 `y` 没有指定，默认为0。
-
-```xml
-<rect x="0" y="0" width="10" height="10" transform="translate(30,40)" />
-```
-
-* **旋转** `rotate(deg)` - 旋转一个元素。值是用角度数指定的。
-
-```xml
-<rect x="20" y="20" width="20" height="20" transform="rotate(45)" />
-```
-
-* **斜切** `skewX(deg)` / `skewY(deg)` - 利用一个矩形制作一个斜菱形。每个值都是用角度数指定的。
-* **缩放** `scale()` - 改变元素的尺寸。它需要两个数字，作为比率计算如何缩放。0.5 表示收缩到 50%。如果忽略第二个数字，默认等于第一个值。
-* **复杂变形** `matrix()` - 所有上面的变形可以表达为一个 2x3 的变形矩阵。可以直接用 `matrix(a, b, c, d, e, f)`变形组合一些变形，设置结果矩阵。
-
-## 2.9 剪切和遮罩
+## 2.7 剪切和遮罩
 
 擦除已经创建的元素的部分内容
 
 **Clipping** 用来移除在别处定义的元素的部分内容。任何半透明效果都是不行的。它只能要么显示要么不显示。  
 **Masking** 允许使用透明度和灰度值遮罩计算得的软边缘。遮罩的效果最令人印象深刻的是表现为一个渐变。如果你想要让一个元素淡出，你可以利用遮罩效果实现。  
 
-### 2.9.1 剪切
+### 2.7.1 剪切
 
 ```xml
 <svg version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
@@ -886,7 +971,7 @@ SVG 允许你无缝嵌入别的 SVG 元素。因此你可以利用内部 SVG 元
 > 注意，`clipPath` 元素经常放在一个 `defs` 元素内。  
 > 该 `rect` 不会被绘制。它的象素数据将用来确定：圆形的哪些像素需要最终呈现出来。因为矩形只覆盖了圆形的上半部分，所以下半部分将消失了。
 
-### 2.9.2 遮罩
+### 2.7.2 遮罩
 
 ```xml
 <svg version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
@@ -936,9 +1021,9 @@ SVG 允许你无缝嵌入别的 SVG 元素。因此你可以利用内部 SVG 元
 
 > 红色的圆形在蓝色的背景上，黄色描边设置为50%不透明度，导到双色描边的效果。
 
-## 2.10 嵌入内容
+## 2.8 嵌入内容
 
-### 1.10.1 嵌入光栅图像
+### 2.8.1 嵌入光栅图像
 
 SVG 有一个 `image` 元素，与 HTML 中的 `img` 元素同样的目的。可以利用它嵌入任意光栅（以及矢量）图像。它的规格要求应用至少支持 PNG、JPG 和 SVG 格式文件。嵌入的图像变成一个普通的 SVG 元素。可以在其内容上用剪切、遮罩、滤镜、旋转以及其它 SVG 工具。
 
@@ -955,13 +1040,13 @@ SVG 有一个 `image` 元素，与 HTML 中的 `img` 元素同样的目的。可
 > * 如果没有设置 height 属性或 width 属性，它们自动被设置为 0。
 > * 如果 width 属性或 height 等于 0，将不会呈现这个图像。
 
-### 2.10.2 嵌入任意 XML
+### 2.8.2 嵌入任意 XML
 
 SVG 是一个 XML 应用，所以总是可以在 SVG 文档的任何位置嵌入任意 XML。  
 <[`foreignObject>`](https://developer.mozilla.org/zh-CN/docs/Web/SVG/Element/foreignObject) 用来在 SVG 中嵌入 XHTML。如果你有更长的文本，HTML 布局比 SVG `text` 元素更适合。另一个经常被引用的用例是用 MathML 写的方程式。对于 SVG 的在科学方面的应用。  
 因为 `foreignObject` 是一个 SVG 元素，所以可以像用图像那样，在其内容上使用各种 SVG 工具。
 
-## 2.11 滤镜效果
+## 2.9 滤镜效果
 
 滤镜（Filter）是 SVG 中用于创建复杂效果的一种机制。  
 滤镜通过 [`<filter>`](https://developer.mozilla.org/zh-CN/docs/Web/SVG/Element/filter) 元素进行定义，并且置于 `<defs>` 区块中。在 `filter` 标签中提供一系列图元（primitives），以及在前一个基本变换操作上建立的另一个操作（比如添加模糊后又添加明亮效果）。如果要应用所创建的滤镜效果，只需要为 SVG 图形元素设置 `filter` 属性即可。
@@ -1084,11 +1169,11 @@ SVG 是一个 XML 应用，所以总是可以在 SVG 文档的任何位置嵌入
 
 最后，[`<feMerge>`](https://developer.mozilla.org/zh-CN/docs/Web/SVG/Element/feMerge) 元素合并了阴影效果 `"offsetBlur"` 和源图像的光照效果 `"litPaint"`。
 
-## 2.12 SVG 字体
+## 2.10 SVG 字体
 
 > SVG 字体当前只在 Safari 和 Android 浏览器中受支持。
 
-### 2.12.1 定义字体
+### 2.10.1 定义字体
 
 定义一个SVG字体的基础是 [`<font>`](https://developer.mozilla.org/zh-CN/docs/Web/SVG/Element/font) 元素。
 
@@ -1130,7 +1215,7 @@ SVG 是一个 XML 应用，所以总是可以在 SVG 文档的任何位置嵌入
 <hkern u1="A" u2="V" k="20" />
 ```
 
-### 2.12.2 使用字体
+### 2.10.2 使用字体
 
 ```xml
 <font>
@@ -1141,7 +1226,7 @@ SVG 是一个 XML 应用，所以总是可以在 SVG 文档的任何位置嵌入
 <text font-family="Super Sans">My text uses Super Sans</text>
 ```
 
-### 2.12.3 引用字体
+### 2.10.3 引用字体
 
 ```xml
 <!-- 引用（远程）字体 -->
@@ -1170,7 +1255,7 @@ SVG 是一个 XML 应用，所以总是可以在 SVG 文档的任何位置嵌入
 </font> 
 ```
 
-## 2.13 基本操作 API
+## 2.11 基本操作 API
 
 * 创建图形 - `document.createElementNS(ns, tagName)`
 
