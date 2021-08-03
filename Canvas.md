@@ -688,7 +688,7 @@ context.fillStra(400, 300)
 ```js
 // 第一种方式
 context.drawImage(
-  image, // javascript image 对象 或者 canva 对象
+  image, // javascript image 对象 或者 canvas 对象
   dx, dy, // 图像凯斯的坐标
   dw, dh // 绘制图像的宽和高
 )
@@ -712,9 +712,9 @@ image.onload = function () {
 ```js
 // 第二种方式
 context.drawImage(
-  image, // javascript Image 对象 或者 canva 对象
+  image, // javascript Image 对象 或者 canvas 对象
   sx, sy, sw, sh, // 取愿图像的范围（一部分）
-  dx, dy, dw, dh // 绘制到 Canvas 画布的范围（显示取到的图像的 canva 画布的指定区域）
+  dx, dy, dw, dh // 绘制到 Canvas 画布的范围（显示取到的图像的 canvas 画布的指定区域）
 )
 ```
 
@@ -750,20 +750,20 @@ imageData.data
 context.putImageData(
   imageData, // 图像的像素信息
   dx, dy, // 
-  dirtyX, dirrtyY, // 会累计到 dx, dy
-  drityWidth, dirtyHeigh
+  dirtyX, dirtyY, // 会累计到 dx, dy
+  dirtyWidth, dirtyHeigh
 )
 ```
 
 ![putImageData](img/canvas/2.3.3%20putImageData.png)
-context.putImageData( imageData, dx, dy, dirtyX, dirrtyY,  drityW, dirtyH )
+context.putImageData( imageData, dx, dy, dirtyX, dirtyY,  dirtyW, dirtyH )
 
 [Image Editer](code/canvas/2.3.3%20imageediter.html)
 
 ### 2.3.4 创建 imageData
 
 ```js
-inmageData = context.createImageDate(
+imageData = context.createImageDate(
   width, height
 )
 ```
